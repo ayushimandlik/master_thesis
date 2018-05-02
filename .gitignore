@@ -1,0 +1,16 @@
+
+.DS_Store
+README.html
+
+main/*.aux
+main/*.bbl
+main/*.blg
+main/*.fdb_latexmk
+main/*.fls
+main/*.lof
+main/*.log
+main/*.lot
+main/*.out
+main/*.gz
+main/*.toc
+

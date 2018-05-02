@@ -1,0 +1,45 @@
+Image 1:
+High resolution image: 12.48" by 10.26"; PA: -8.10 deg
+Outer taper: 14",9.5", PA: -8.2
+RMS: 0.3mJy
+Parameters: 
+	>80 lambda
+	multiscale parameters: 0,10,35,100,200
+	threshold: 0.6mJy
+	cell: 1.5
+Contours: 3,8,8,12,18,18,32,44 of 0.3mJy
+
+Image 2:
+Medium resolution image: 24.57" by 22.19"; PA: -8.10 deg
+Outer taper: 22",22"
+RMS: 0.4mJy
+Parameters: 
+	>80 lambda
+	multiscale parameters: 0,10,35,100,250
+	threshold: 0.6mJy
+	cell: 1.5
+Contours: 3,8,8,12,18,18,32,44 of 0.4mJy
+
+Image 3: 
+Medium resolution image: 25.93" by 23.26"; PA: 62.7 deg
+Outer taper: 23",24"
+RMS: 0.43mJy
+Parameters: 
+	>80 lambda
+	multiscale parameters: 0,10,35,100,250
+	threshold: 0.6mJy
+	cell: 1.5
+Contours: 3,8,8,12,18,18,32,44 of 0.43mJy
+
+Image 4:
+Low resolution image: 38.15" by 34.39"; PA: 23.99 deg
+Outer taper: 37",37"
+RMS: 0.6mJy
+Parameters: 
+	>80 lambda
+	multiscale parameters: 0,10,35,100,250
+	threshold: 0.6mJy
+	cell: 1.5
+Contours: 3,8,8,12,18,18,32,44 of 0.6mJy
+
+
