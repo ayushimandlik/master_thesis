@@ -1,0 +1,4802 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 81 210 530 584
+%%Pages: 0
+%%Creator: (BLT 3.0 Graph)
+%%CreationDate: (Sun Jun 10 04:25:31 2018)
+%%Title: (ds9.ps)
+%%DocumentData: Clean7Bit
+%%Orientation: Portrait
+%%DocumentNeededResources: font Helvetica Courier
+%%EndComments
+
+
+% including file "./zvfsmntpt/blt3.0/bltGraph.pro"
+
+
+%%BeginProlog
+%
+% PostScript prolog file of the BLT graph widget.
+%
+% Copyright 1989-1992 Regents of the University of California.
+% Permission to use, copy, modify, and distribute this
+% software and its documentation for any purpose and without
+% fee is hereby granted, provided that the above copyright
+% notice appear in all copies.  The University of California
+% makes no representations about the suitability of this
+% software for any purpose.  It is provided "as is" without
+% express or implied warranty.
+%
+% Copyright 1991-1997 Bell Labs Innovations for Lucent Technologies.
+%
+% Permission to use, copy, modify, and distribute this software and its
+% documentation for any purpose and without fee is hereby granted, provided
+% that the above copyright notice appear in all copies and that both that the
+% copyright notice and warranty disclaimer appear in supporting documentation,
+% and that the names of Lucent Technologies any of their entities not be used
+% in advertising or publicity pertaining to distribution of the software
+% without specific, written prior permission.
+%
+% Lucent Technologies disclaims all warranties with regard to this software,
+% including all implied warranties of merchantability and fitness.  In no event
+% shall Lucent Technologies be liable for any special, indirect or
+% consequential damages or any damages whatsoever resulting from loss of use,
+% data or profits, whether in an action of contract, negligence or other
+% tortuous action, arising out of or in connection with the use or performance
+% of this software.
+%
+
+200 dict begin
+
+/BaseRatio 1.3467736870885982 def	% Ratio triangle base / symbol size
+/BgColorProc 0 def			% Background color routine (symbols)
+/DrawSymbolProc 0 def			% Routine to draw symbol outline/fill
+/StippleProc 0 def			% Stipple routine (bar segments)
+/DashesProc 0 def			% Dashes routine (line segments)
+  
+% Define the array ISOLatin1Encoding (which specifies how characters are 
+% encoded for ISO-8859-1 fonts), if it isn't already present (Postscript 
+% level 2 is supposed to define it, but level 1 doesn't). 
+ 
+systemdict /ISOLatin1Encoding known not { 
+  /ISOLatin1Encoding [ 
+    /space /space /space /space /space /space /space /space 
+    /space /space /space /space /space /space /space /space 
+    /space /space /space /space /space /space /space /space 
+    /space /space /space /space /space /space /space /space 
+    /space /exclam /quotedbl /numbersign /dollar /percent /ampersand 
+    /quoteright 
+    /parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+    /zero /one /two /three /four /five /six /seven 
+    /eight /nine /colon /semicolon /less /equal /greater /question 
+    /at /A /B /C /D /E /F /G 
+    /H /I /J /K /L /M /N /O 
+    /P /Q /R /S /T /U /V /W 
+    /X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+    /quoteleft /a /b /c /d /e /f /g 
+    /h /i /j /k /l /m /n /o 
+    /p /q /r /s /t /u /v /w 
+    /x /y /z /braceleft /bar /braceright /asciitilde /space 
+    /space /space /space /space /space /space /space /space 
+    /space /space /space /space /space /space /space /space 
+    /dotlessi /grave /acute /circumflex /tilde /macron /breve /dotaccent 
+    /dieresis /space /ring /cedilla /space /hungarumlaut /ogonek /caron 
+    /space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+    /dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen 
+    /registered /macron 
+    /degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph 
+    /periodcentered 
+    /cedillar /onesuperior /ordmasculine /guillemotright /onequarter 
+    /onehalf /threequarters /questiondown 
+    /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+    /Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex 
+    /Idieresis 
+    /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+    /Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn 
+    /germandbls 
+    /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+    /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex 
+    /idieresis 
+    /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+    /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn 
+    /ydieresis 
+  ] def 
+} if 
+
+% font ISOEncode font 
+% This procedure changes the encoding of a font from the default 
+% Postscript encoding to ISOLatin1.  It is typically invoked just 
+% before invoking "setfont".  The body of this procedure comes from 
+% Section 5.6.1 of the Postscript book. 
+
+/ISOEncode { 
+  dup length dict
+  begin 
+    {1 index /FID ne {def} {pop pop} ifelse} forall 
+    /Encoding ISOLatin1Encoding def 
+    currentdict 
+  end 
+
+  % I'm not sure why it's necessary to use "definefont" on this new 
+  % font, but it seems to be important; just use the name "Temporary" 
+  % for the font. 
+
+  /Temporary exch definefont 
+} bind def 
+
+/Stroke {
+  gsave
+    stroke
+  grestore
+} def
+
+/Fill {
+  gsave
+    fill
+  grestore
+} def
+
+/SetFont { 	
+  % Stack: pointSize fontName
+  findfont exch scalefont ISOEncode setfont
+} def
+
+/Box {
+  % Stack: x y width height
+  newpath
+    exch 4 2 roll moveto
+    dup 0 rlineto
+    exch 0 exch rlineto
+    neg 0 rlineto
+  closepath
+} def
+
+% The next two definitions are taken from "$tk_library/prolog.ps"
+
+% desiredSize EvenPixels closestSize
+%
+% The procedure below is used for stippling.  Given the optimal size
+% of a dot in a stipple pattern in the current user coordinate system,
+% compute the closest size that is an exact multiple of the device's
+% pixel size.  This allows stipple patterns to be displayed without
+% aliasing effects.
+
+/EvenPixels {
+  % Compute exact number of device pixels per stipple dot.
+  dup 0 matrix currentmatrix dtransform
+  dup mul exch dup mul add sqrt
+
+  % Round to an integer, make sure the number is at least 1, and compute
+  % user coord distance corresponding to this.
+  dup round dup 1 lt {pop 1} if
+  exch div mul
+} bind def
+
+% width height string filled StippleFill --
+%
+% Given a path and other graphics information already set up, this
+% procedure will fill the current path in a stippled fashion.  "String"
+% contains a proper image description of the stipple pattern and
+% "width" and "height" give its dimensions.  If "filled" is true then
+% it means that the area to be stippled is gotten by filling the
+% current path (e.g. the interior of a polygon); if it's false, the
+% area is gotten by stroking the current path (e.g. a wide line).
+% Each stipple dot is assumed to be about one unit across in the
+% current user coordinate system.
+
+% width height string StippleFill --
+%
+% Given a path already set up and a clipping region generated from
+% it, this procedure will fill the clipping region with a stipple
+% pattern.  "String" contains a proper image description of the
+% stipple pattern and "width" and "height" give its dimensions.  Each
+% stipple dot is assumed to be about one unit across in the current
+% user coordinate system.  This procedure trashes the graphics state.
+
+/StippleFill {
+    % The following code is needed to work around a NeWSprint bug.
+
+    /tmpstip 1 index def
+
+    % Change the scaling so that one user unit in user coordinates
+    % corresponds to the size of one stipple dot.
+    1 EvenPixels dup scale
+
+    % Compute the bounding box occupied by the path (which is now
+    % the clipping region), and round the lower coordinates down
+    % to the nearest starting point for the stipple pattern.  Be
+    % careful about negative numbers, since the rounding works
+    % differently on them.
+
+    pathbbox
+    4 2 roll
+    5 index div dup 0 lt {1 sub} if cvi 5 index mul 4 1 roll
+    6 index div dup 0 lt {1 sub} if cvi 6 index mul 3 2 roll
+
+    % Stack now: width height string y1 y2 x1 x2
+    % Below is a doubly-nested for loop to iterate across this area
+    % in units of the stipple pattern size, going up columns then
+    % across rows, blasting out a stipple-pattern-sized rectangle at
+    % each position
+
+    6 index exch {
+	2 index 5 index 3 index {
+	    % Stack now: width height string y1 y2 x y
+
+	    gsave
+	    1 index exch translate
+	    5 index 5 index true matrix tmpstip imagemask
+	    grestore
+	} for
+	pop
+    } for
+    pop pop pop pop pop
+} bind def
+
+
+/LS {	% Stack: x1 y1 x2 y2
+  newpath 
+    4 2 roll moveto 
+    lineto 
+  closepath
+  stroke
+} def
+
+/EndText {
+  %Stack :
+  grestore
+} def
+
+/BeginText {
+  %Stack :  w h theta centerX centerY
+  gsave
+    % Translate the origin to the center of bounding box and rotate
+    translate neg rotate
+    % Translate back to the origin of the text region
+    -0.5 mul exch -0.5 mul exch translate
+} def
+
+/DrawAdjText {
+  %Stack : str strWidth x y
+  moveto				% Go to the text position
+  exch dup dup 4 2 roll
+
+  % Adjust character widths to get desired overall string width
+  % adjust X = (desired width - real width)/#chars
+
+  stringwidth pop sub exch
+  length div
+  0 3 -1 roll
+
+  % Flip back the scale so that the string is not drawn in reverse
+
+  gsave
+    1 -1 scale
+    ashow
+  grestore
+} def
+
+/DrawBitmap {
+  % Stack: ?bgColorProc? boolean centerX centerY width height theta imageStr
+  gsave
+    6 -2 roll translate			% Translate to center of bounding box
+    4 1 roll neg rotate			% Rotate by theta
+    
+    % Find upperleft corner of bounding box
+    
+    2 copy -.5 mul exch -.5 mul exch translate
+    2 copy scale			% Make pixel unit scale
+    newpath
+      0 0 moveto 
+      0 1 lineto 
+      1 1 lineto 
+      1 0 lineto
+    closepath
+    
+    % Fill rectangle with background color
+    
+    4 -1 roll { 
+      gsave 
+	4 -1 roll exec fill 
+      grestore 
+    } if
+    
+    % Paint the image string into the unit rectangle
+    
+    2 copy true 3 -1 roll 0 0 5 -1 roll 0 0 6 array astore 5 -1 roll
+    imagemask
+  grestore
+} def
+
+% Symbols:
+
+% Skinny-cross
+/Sc {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate 45 rotate
+    0 0 3 -1 roll Sp
+  grestore
+} def
+
+% Skinny-plus
+/Sp {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate
+    2 idiv
+    dup 2 copy
+    newpath 
+      neg 0 
+      moveto 0 
+      lineto
+    DrawSymbolProc
+    newpath 
+      neg 0 
+      exch moveto 0 
+      exch lineto
+    DrawSymbolProc
+  grestore
+} def
+
+% Cross
+/Cr {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate 45 rotate
+    0 0 3 -1 roll Pl
+  grestore
+} def
+
+% Plus
+/Pl {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate
+    dup 2 idiv
+    exch 6 idiv
+
+    %
+    %          2   3		The plus/cross symbol is a
+    %				closed polygon of 12 points.
+    %      0   1   4    5	The diagram to the left
+    %           x,y		represents the positions of
+    %     11  10   7    6	the points which are computed
+    %				below.
+    %          9   8
+    %
+
+    newpath
+      2 copy exch neg exch neg moveto 
+      dup neg dup lineto
+      2 copy neg exch neg lineto
+      2 copy exch neg lineto
+      dup dup neg lineto 
+      2 copy neg lineto 2 copy lineto
+      dup dup lineto 
+      2 copy exch lineto 
+      2 copy neg exch lineto
+      dup dup neg exch lineto 
+      exch neg exch lineto
+    closepath
+    DrawSymbolProc
+  grestore
+} def
+
+% Circle
+/Ci {
+  % Stack: x y symbolSize
+  gsave
+    3 copy pop moveto 
+    newpath
+      2 div 0 360 arc
+    closepath 
+    DrawSymbolProc
+  grestore
+} def
+
+% Square
+/Sq {
+  % Stack: x y symbolSize
+  gsave
+    dup dup 2 div dup
+    6 -1 roll exch sub exch
+    5 -1 roll exch sub 4 -2 roll Box
+    DrawSymbolProc
+  grestore
+} def
+
+% Line
+/Li {
+  % Stack: x y symbolSize
+  gsave
+    3 1 roll exch 3 -1 roll 2 div 3 copy
+    newpath
+      sub exch moveto 
+      add exch lineto
+    closepath
+    stroke
+  grestore
+} def
+
+% Diamond
+/Di {
+  % Stack: x y symbolSize
+  gsave
+    3 1 roll translate 45 rotate 0 0 3 -1 roll Sq
+  grestore
+} def
+    
+% Triangle
+/Tr {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate
+    BaseRatio mul 0.5 mul		% Calculate 1/2 base
+    dup 0 exch 30 cos mul		% h1 = height above center point
+    neg					% b2 0 -h1
+    newpath 
+      moveto				% point 1;  b2
+      dup 30 sin 30 cos div mul		% h2 = height below center point
+      2 copy lineto			% point 2;  b2 h2
+      exch neg exch lineto		% 
+    closepath
+    DrawSymbolProc
+  grestore
+} def
+
+% Arrow
+/Ar {
+  % Stack: x y symbolSize
+  gsave
+    3 -2 roll translate
+    BaseRatio mul 0.5 mul		% Calculate 1/2 base
+    dup 0 exch 30 cos mul		% h1 = height above center point
+					% b2 0 h1
+    newpath moveto			% point 1;  b2
+    dup 30 sin 30 cos div mul		% h2 = height below center point
+    neg					% -h2 b2
+    2 copy lineto			% point 2;  b2 h2
+    exch neg exch lineto		% 
+    closepath
+    DrawSymbolProc
+  grestore
+} def
+
+% Bitmap
+/Bm {
+  % Stack: x y symbolSize
+  gsave
+    3 1 roll translate pop DrawSymbolProc
+  grestore
+} def
+
+%%EndProlog
+
+%%BeginSetup
+gsave					% Save the graphics state
+
+% Default line/text style parameters
+
+1 setlinewidth				% width
+1 setlinejoin				% join
+0 setlinecap				% cap
+[] 0 setdash				% dashes
+
+0 0 0 setrgbcolor			% color
+
+% Transform coordinate system to use X11 coordinates
+
+% 1. Flip y-axis over by reversing the scale,
+% 2. Translate the origin to the other side of the page,
+%    making the origin the upper left corner
+1 -1 scale
+0 -792 translate
+
+% User defined page layout
+
+% Set color level
+% Set origin
+81 208 translate
+
+
+%%EndSetup
+
+12.0 /Helvetica-Bold SetFont
+1 1 1 setrgbcolor
+newpath
+  63 25 moveto
+  372 0 rlineto
+  0 313 rlineto
+  -372 0 rlineto
+closepath
+fill
+newpath
+  63 25 moveto
+  372 0 rlineto
+  0 313 rlineto
+  -372 0 rlineto
+closepath
+gsave clip
+
+% Axis x: grid line attributes
+0 setlinejoin
+0 setlinecap
+0.635294 0.635294 0.635294 setrgbcolor
+1 setlinewidth
+[  1] 0 setdash
+/DashesProc {} def
+% Axis x: major grid line segments
+newpath
+  65 27 moveto 65 335 lineto
+DashesProc stroke
+  156.773 27 moveto 156.773 335 lineto
+DashesProc stroke
+  248.546 27 moveto 248.546 335 lineto
+DashesProc stroke
+  340.319 27 moveto 340.319 335 lineto
+DashesProc stroke
+0 setlinejoin
+0 setlinecap
+0.635294 0.635294 0.635294 setrgbcolor
+1 setlinewidth
+[  1] 0 setdash
+/DashesProc {} def
+% Axis x: minor grid line segments
+newpath
+  110.886 27 moveto 110.886 335 lineto
+DashesProc stroke
+  202.659 27 moveto 202.659 335 lineto
+DashesProc stroke
+  294.432 27 moveto 294.432 335 lineto
+DashesProc stroke
+  386.205 27 moveto 386.205 335 lineto
+DashesProc stroke
+% Axis y: grid line attributes
+0 setlinejoin
+0 setlinecap
+0.635294 0.635294 0.635294 setrgbcolor
+1 setlinewidth
+[  1] 0 setdash
+/DashesProc {} def
+% Axis y: major grid line segments
+newpath
+  65 310.261 moveto 432 310.261 lineto
+DashesProc stroke
+  65 227.339 moveto 432 227.339 lineto
+DashesProc stroke
+  65 144.417 moveto 432 144.417 lineto
+DashesProc stroke
+  65 61.4949 moveto 432 61.4949 lineto
+DashesProc stroke
+0 setlinejoin
+0 setlinecap
+0.635294 0.635294 0.635294 setrgbcolor
+1 setlinewidth
+[  1] 0 setdash
+/DashesProc {} def
+% Axis y: minor grid line segments
+newpath
+  65 268.8 moveto 432 268.8 lineto
+DashesProc stroke
+  65 185.878 moveto 432 185.878 lineto
+DashesProc stroke
+  65 102.956 moveto 432 102.956 lineto
+DashesProc stroke
+
+% Element "l-1"
+
+0 setlinejoin
+0 setlinecap
+0 0 0 setrgbcolor
+1 setlinewidth
+[ ] 0 setdash
+/DashesProc {} def
+/DashesProc {} def
+% start trace
+newpath
+  65 263.58 moveto
+  65.0918 260.293 lineto
+  65.1835 258.268 lineto
+  65.2753 256.245 lineto
+  65.3671 251.216 lineto
+  65.4589 244.956 lineto
+  65.5506 242.712 lineto
+  65.6424 247.762 lineto
+  65.7342 260.058 lineto
+  65.826 276.771 lineto
+  65.9177 290.893 lineto
+  66.0095 297.78 lineto
+  66.1013 294.542 lineto
+  66.193 283.709 lineto
+  66.2848 269.442 lineto
+  66.3766 255.52 lineto
+  66.4684 249.562 lineto
+  66.5601 252.194 lineto
+  66.6519 261.155 lineto
+  66.7437 271.407 lineto
+  66.8355 276.704 lineto
+  66.9272 277.631 lineto
+  67.019 276.363 lineto
+  67.1108 271.295 lineto
+  67.2026 265.647 lineto
+  67.2943 259.589 lineto
+  67.3861 254.808 lineto
+  67.4779 256.475 lineto
+  67.5696 265.011 lineto
+  67.6614 275.115 lineto
+  67.7532 280.541 lineto
+  67.845 280.888 lineto
+  67.9367 280.359 lineto
+  68.0285 279.379 lineto
+  68.1203 280.104 lineto
+  68.2121 279.826 lineto
+  68.3038 277.198 lineto
+  68.3956 271.869 lineto
+  68.4874 262.107 lineto
+  68.5791 250.472 lineto
+  68.6709 242.396 lineto
+  68.7627 239.347 lineto
+  68.8545 242.384 lineto
+  68.9462 248.487 lineto
+  69.038 255.418 lineto
+  69.1298 260.438 lineto
+  69.2216 260.722 lineto
+  69.3133 258.723 lineto
+  69.4051 257.528 lineto
+  69.4969 256.772 lineto
+  69.5886 256.397 lineto
+  69.6804 257.18 lineto
+  69.7722 257.246 lineto
+  69.864 253.869 lineto
+  69.9557 247.288 lineto
+  70.0475 237.103 lineto
+  70.1393 223.884 lineto
+  70.2311 210.921 lineto
+  70.3228 201.696 lineto
+  70.4146 199.779 lineto
+  70.5064 205.422 lineto
+  70.5981 214.822 lineto
+  70.6899 227.507 lineto
+  70.7817 241.775 lineto
+  70.8735 253.094 lineto
+  70.9652 262.253 lineto
+  71.057 268.942 lineto
+  71.1488 273.837 lineto
+  71.2406 276.646 lineto
+  71.3323 269.195 lineto
+  71.4241 252.387 lineto
+  71.5159 232.52 lineto
+  71.6077 206.835 lineto
+  71.6994 181.5 lineto
+  71.7912 165.114 lineto
+  71.883 161.042 lineto
+  71.9747 169.164 lineto
+  72.0665 187.663 lineto
+  72.1583 210.753 lineto
+  72.2501 232.05 lineto
+  72.3418 245.398 lineto
+  72.4336 254.798 lineto
+  72.5254 260.582 lineto
+  72.6172 259.385 lineto
+  72.7089 250.332 lineto
+  72.8007 240.218 lineto
+  72.8925 233.614 lineto
+  72.9842 229.399 lineto
+  73.076 228.12 lineto
+  73.1678 230.852 lineto
+  73.2596 238.711 lineto
+  73.3513 249.396 lineto
+  73.4431 258.501 lineto
+  73.5349 257.767 lineto
+  73.6267 253.103 lineto
+  73.7184 247.583 lineto
+  73.8102 242.805 lineto
+  73.902 241.612 lineto
+  73.9937 246.929 lineto
+  74.0855 257.508 lineto
+  74.1773 270.959 lineto
+  74.2691 281.716 lineto
+  74.3608 282.993 lineto
+  74.4526 276.733 lineto
+  74.5444 265.567 lineto
+  74.6362 254.741 lineto
+  74.7279 248.467 lineto
+  74.8197 247.664 lineto
+  74.9115 252.102 lineto
+  75.0033 258.454 lineto
+  75.095 263.501 lineto
+  75.1868 263.974 lineto
+  75.2786 255.645 lineto
+  75.3703 241.255 lineto
+  75.4621 229.213 lineto
+  75.5539 220.938 lineto
+  75.6457 217.016 lineto
+  75.7374 221.534 lineto
+  75.8292 231.483 lineto
+  75.921 241.091 lineto
+  76.0128 249.202 lineto
+  76.1045 255.051 lineto
+  76.1963 259 lineto
+  76.2881 262.14 lineto
+  76.3798 267.825 lineto
+  76.4716 276.567 lineto
+  76.5634 287.62 lineto
+  76.6552 297.501 lineto
+  76.7469 301.498 lineto
+  76.8387 298.658 lineto
+  76.9305 294.376 lineto
+  77.0223 288.397 lineto
+  77.114 281.421 lineto
+  77.2058 275.071 lineto
+  77.2976 271.676 lineto
+  77.3893 272.481 lineto
+  77.4811 273.419 lineto
+  77.5729 270.494 lineto
+  77.6647 262.365 lineto
+  77.7564 252.227 lineto
+  77.8482 242.674 lineto
+  77.94 237.21 lineto
+  78.0318 234.984 lineto
+  78.1235 234.849 lineto
+  78.2153 237.367 lineto
+  78.3071 242.803 lineto
+  78.3988 251.327 lineto
+  78.4906 260.626 lineto
+  78.5824 267.845 lineto
+  78.6742 272.945 lineto
+  78.7659 277.699 lineto
+  78.8577 283.036 lineto
+  78.9495 287.045 lineto
+  79.0413 292.443 lineto
+  79.133 297.505 lineto
+  79.2248 297.594 lineto
+  79.3166 292.377 lineto
+  79.4084 284.75 lineto
+  79.5001 276.547 lineto
+  79.5919 267.563 lineto
+  79.6837 258.245 lineto
+  79.7754 253.06 lineto
+  79.8672 255.701 lineto
+  79.959 265.59 lineto
+  80.0508 279.094 lineto
+  80.1425 290.515 lineto
+  80.2343 291.474 lineto
+  80.3261 284.571 lineto
+  80.4179 277.875 lineto
+  80.5096 271.854 lineto
+  80.6014 264.965 lineto
+  80.6932 262.186 lineto
+  80.7849 267.574 lineto
+  80.8767 277.19 lineto
+  80.9685 285.356 lineto
+  81.0603 285.715 lineto
+  81.152 279.94 lineto
+  81.2438 270.563 lineto
+  81.3356 259.413 lineto
+  81.4274 251.125 lineto
+  81.5191 249.318 lineto
+  81.6109 253.843 lineto
+  81.7027 265.756 lineto
+  81.7944 281.457 lineto
+  81.8862 292.418 lineto
+  81.978 291.731 lineto
+  82.0698 277.28 lineto
+  82.1615 252.693 lineto
+  82.2533 220.84 lineto
+  82.3451 191.624 lineto
+  82.4369 171.839 lineto
+  82.5286 165.301 lineto
+  82.6204 171.464 lineto
+  82.7122 185.298 lineto
+  82.804 198.994 lineto
+  82.8957 205.148 lineto
+  82.9875 205.021 lineto
+  83.0793 201.437 lineto
+  83.171 199.371 lineto
+  83.2628 202.734 lineto
+  83.3546 212.116 lineto
+  83.4464 227.641 lineto
+  83.5381 245.643 lineto
+  83.6299 262.325 lineto
+  83.7217 268.732 lineto
+  83.8135 255.322 lineto
+  83.9052 234.197 lineto
+  83.997 212.648 lineto
+  84.0888 194.969 lineto
+  84.1805 185.21 lineto
+  84.2723 185.462 lineto
+  84.3641 195.738 lineto
+  84.4559 212.067 lineto
+  84.5476 231.182 lineto
+  84.6394 245.264 lineto
+  84.7312 252.749 lineto
+  84.823 255.156 lineto
+  84.9147 254.06 lineto
+  85.0065 252.099 lineto
+  85.0983 251.609 lineto
+  85.19 250.208 lineto
+  85.2818 248.723 lineto
+  85.3736 248.927 lineto
+  85.4654 247.332 lineto
+  85.5571 246.071 lineto
+  85.6489 248.036 lineto
+  85.7407 257.315 lineto
+  85.8325 274.021 lineto
+  85.9242 291.49 lineto
+  86.016 297.682 lineto
+  86.1078 285.564 lineto
+  86.1995 262.059 lineto
+  86.2913 233.004 lineto
+  86.3831 201.16 lineto
+  86.4749 175.239 lineto
+  86.5666 163.44 lineto
+  86.6584 167.175 lineto
+  86.7502 183.724 lineto
+  86.842 206.812 lineto
+  86.9337 225.26 lineto
+  87.0255 227.004 lineto
+  87.1173 216.545 lineto
+  87.2091 203.893 lineto
+  87.3008 196.98 lineto
+  87.3926 198.879 lineto
+  87.4844 211.818 lineto
+  87.5761 235.672 lineto
+  87.6679 266.17 lineto
+  87.7597 296.199 lineto
+  87.8515 308.617 lineto
+  87.9432 298.71 lineto
+  88.035 277.018 lineto
+  88.1268 252.278 lineto
+  88.2186 228.574 lineto
+  88.3103 212.711 lineto
+  88.4021 207.847 lineto
+  88.4939 212.779 lineto
+  88.5856 225.324 lineto
+  88.6774 241.043 lineto
+  88.7692 250.57 lineto
+  88.861 256.616 lineto
+  88.9527 262.825 lineto
+  89.0445 270.699 lineto
+  89.1363 280.384 lineto
+  89.2281 288.161 lineto
+  89.3198 292.461 lineto
+  89.4116 294.1 lineto
+  89.5034 291.502 lineto
+  89.5951 280.756 lineto
+  89.6869 270.242 lineto
+  89.7787 265.752 lineto
+  89.8705 264.714 lineto
+  89.9622 259.113 lineto
+  90.054 247.523 lineto
+  90.1458 231.846 lineto
+  90.2376 215.54 lineto
+  90.3293 200.825 lineto
+  90.4211 190.067 lineto
+  90.5129 184.392 lineto
+  90.6047 184.323 lineto
+  90.6964 188.754 lineto
+  90.7882 197.364 lineto
+  90.88 206.825 lineto
+  90.9717 214.335 lineto
+  91.0635 221.171 lineto
+  91.1553 226.387 lineto
+  91.2471 229.286 lineto
+  91.3388 230.689 lineto
+  91.4306 231.156 lineto
+  91.5224 228.104 lineto
+  91.6142 221.851 lineto
+  91.7059 215.247 lineto
+  91.7977 210.638 lineto
+  91.8895 210.124 lineto
+  91.9812 213.839 lineto
+  92.073 221.471 lineto
+  92.1648 229.094 lineto
+  92.2566 237.423 lineto
+  92.3483 243.449 lineto
+  92.4401 247.912 lineto
+  92.5319 251.675 lineto
+  92.6237 254.554 lineto
+  92.7154 256.724 lineto
+  92.8072 256.992 lineto
+  92.899 254.482 lineto
+  92.9907 250.329 lineto
+  93.0825 243.117 lineto
+  93.1743 234.326 lineto
+  93.2661 225.44 lineto
+  93.3578 215.96 lineto
+  93.4496 210.089 lineto
+  93.5414 208.58 lineto
+  93.6332 211.737 lineto
+  93.7249 219.948 lineto
+  93.8167 230.97 lineto
+  93.9085 240.08 lineto
+  94.0003 246.366 lineto
+  94.092 249.97 lineto
+  94.1838 247.012 lineto
+  94.2756 240.317 lineto
+  94.3673 232.716 lineto
+  94.4591 226.967 lineto
+  94.5509 224.444 lineto
+  94.6427 225.314 lineto
+  94.7344 229.108 lineto
+  94.8262 233.724 lineto
+  94.918 239.177 lineto
+  95.0098 246.983 lineto
+  95.1015 255.697 lineto
+  95.1933 260.807 lineto
+  95.2851 261.733 lineto
+  95.3768 258.306 lineto
+  95.4686 257.813 lineto
+  95.5604 261.34 lineto
+  95.6522 265.321 lineto
+  95.7439 260.274 lineto
+  95.8357 244.577 lineto
+  95.9275 221.908 lineto
+  96.0193 200.679 lineto
+  96.111 186.417 lineto
+  96.2028 183.068 lineto
+  96.2946 192.342 lineto
+  96.3863 214.043 lineto
+  96.4781 243.931 lineto
+  96.5699 275.013 lineto
+  96.6617 301.372 lineto
+  96.7534 311.61 lineto
+  96.8452 303.78 lineto
+  96.937 282.34 lineto
+  97.0288 254.765 lineto
+  97.1205 231.08 lineto
+  97.2123 219.282 lineto
+  97.3041 219.569 lineto
+  97.3958 230.259 lineto
+  97.4876 246.62 lineto
+  97.5794 262.31 lineto
+  97.6712 271.875 lineto
+  97.7629 261.957 lineto
+  97.8547 239.474 lineto
+  97.9465 218.202 lineto
+  98.0383 206.399 lineto
+  98.13 206.634 lineto
+  98.2218 217.804 lineto
+  98.3136 237.324 lineto
+  98.4054 260.182 lineto
+  98.4971 280.337 lineto
+  98.5889 292.67 lineto
+  98.6807 289.942 lineto
+  98.7724 270.935 lineto
+  98.8642 245.53 lineto
+  98.956 222.214 lineto
+  99.0478 204.79 lineto
+  99.1395 191.207 lineto
+  99.2313 181.514 lineto
+  99.3231 178.849 lineto
+  99.4149 181.612 lineto
+  99.5066 187.786 lineto
+  99.5984 195.726 lineto
+  99.6902 207.481 lineto
+  99.7819 224.214 lineto
+  99.8737 244.584 lineto
+  99.9655 266.835 lineto
+  100.057 283.923 lineto
+  100.149 294.605 lineto
+  100.241 298.663 lineto
+  100.333 295.652 lineto
+  100.424 286.48 lineto
+  100.516 272.243 lineto
+  100.608 254.753 lineto
+  100.7 242.429 lineto
+  100.791 240.002 lineto
+  100.883 246.293 lineto
+  100.975 259.25 lineto
+  101.067 272.217 lineto
+  101.159 281.855 lineto
+  101.25 286.692 lineto
+  101.342 289.417 lineto
+  101.434 290.202 lineto
+  101.526 285.967 lineto
+  101.617 276.436 lineto
+  101.709 263.29 lineto
+  101.801 250.247 lineto
+  101.893 238.43 lineto
+  101.984 228.899 lineto
+  102.076 221.526 lineto
+  102.168 218.336 lineto
+  102.26 222.361 lineto
+  102.352 233.507 lineto
+  102.443 248.252 lineto
+  102.535 261.462 lineto
+  102.627 266.722 lineto
+  102.719 262.577 lineto
+  102.81 252.733 lineto
+  102.902 241.292 lineto
+  102.994 233.221 lineto
+  103.086 229.849 lineto
+  103.178 231.927 lineto
+  103.269 239.573 lineto
+  103.361 249.771 lineto
+  103.453 259.544 lineto
+  103.545 267.043 lineto
+  103.636 268.57 lineto
+  103.728 264.365 lineto
+  103.82 256.994 lineto
+  103.912 250.684 lineto
+  104.004 248.561 lineto
+  104.095 252.3 lineto
+  104.187 259.47 lineto
+  104.279 265.354 lineto
+  104.371 264.692 lineto
+  104.462 259.596 lineto
+  104.554 247.339 lineto
+  104.646 230.182 lineto
+  104.738 215.27 lineto
+  104.829 205.178 lineto
+  104.921 201.61 lineto
+  105.013 202.904 lineto
+  105.105 206.242 lineto
+  105.197 210.738 lineto
+  105.288 216.275 lineto
+  105.38 223.569 lineto
+  105.472 230.581 lineto
+  105.564 233.203 lineto
+  105.655 234.385 lineto
+  105.747 235.471 lineto
+  105.839 239.072 lineto
+  105.931 243.478 lineto
+  106.023 246.576 lineto
+  106.114 246.971 lineto
+  106.206 244.982 lineto
+  106.298 242.32 lineto
+  106.39 241.423 lineto
+  106.481 245.24 lineto
+  106.573 252.026 lineto
+  106.665 262.495 lineto
+  106.757 275.908 lineto
+  106.848 291.915 lineto
+  106.94 308.301 lineto
+  107.032 316.747 lineto
+  107.124 309.681 lineto
+  107.216 290.453 lineto
+  107.307 267.292 lineto
+  107.399 247.907 lineto
+  107.491 235.543 lineto
+  107.583 229.973 lineto
+  107.674 234.218 lineto
+  107.766 247.917 lineto
+  107.858 267.521 lineto
+  107.95 283.424 lineto
+  108.042 280.827 lineto
+  108.133 260.251 lineto
+  108.225 234.035 lineto
+  108.317 209.44 lineto
+  108.409 191.641 lineto
+  108.5 183.054 lineto
+  108.592 187.758 lineto
+  108.684 206.463 lineto
+  108.776 233.801 lineto
+  108.867 265.51 lineto
+  108.959 293.275 lineto
+  109.051 306.423 lineto
+  109.143 308.815 lineto
+  109.235 308.552 lineto
+  109.326 298.695 lineto
+  109.418 285.892 lineto
+  109.51 275.924 lineto
+  109.602 271.728 lineto
+  109.693 270.053 lineto
+  109.785 263.587 lineto
+  109.877 255.956 lineto
+  109.969 253.622 lineto
+  110.061 255.457 lineto
+  110.152 260.791 lineto
+  110.244 265.201 lineto
+  110.336 265.5 lineto
+  110.428 265.997 lineto
+  110.519 268.209 lineto
+  110.611 270.168 lineto
+  110.703 269.93 lineto
+  110.795 270.246 lineto
+  110.886 269.284 lineto
+  110.978 263.284 lineto
+  111.07 254.341 lineto
+  111.162 247.109 lineto
+  111.254 242.636 lineto
+  111.345 241.158 lineto
+  111.437 242.343 lineto
+  111.529 244.042 lineto
+  111.621 244.801 lineto
+  111.712 245.289 lineto
+  111.804 239.603 lineto
+  111.896 231.086 lineto
+  111.988 224.941 lineto
+  112.08 224.69 lineto
+  112.171 230.548 lineto
+  112.263 243.142 lineto
+  112.355 261.279 lineto
+  112.447 283.526 lineto
+  112.538 303.753 lineto
+  112.63 312.75 lineto
+  112.722 306.758 lineto
+  112.814 293.859 lineto
+  112.905 282.369 lineto
+  112.997 277.122 lineto
+  113.089 279.706 lineto
+  113.181 288.048 lineto
+  113.273 300.162 lineto
+  113.364 314.783 lineto
+  113.456 326.022 lineto
+  113.548 329.318 lineto
+  113.64 323.147 lineto
+  113.731 310.418 lineto
+  113.823 297.45 lineto
+  113.915 284.444 lineto
+  114.007 271.447 lineto
+  114.099 257.367 lineto
+  114.19 245.31 lineto
+  114.282 235.229 lineto
+  114.374 227.687 lineto
+  114.466 222.62 lineto
+  114.557 221.654 lineto
+  114.649 227.607 lineto
+  114.741 238.989 lineto
+  114.833 249.049 lineto
+  114.924 254.435 lineto
+  115.016 256.644 lineto
+  115.108 257.357 lineto
+  115.2 258.712 lineto
+  115.292 260.718 lineto
+  115.383 261.578 lineto
+  115.475 256.44 lineto
+  115.567 250.476 lineto
+  115.659 243.388 lineto
+  115.75 235.25 lineto
+  115.842 224.843 lineto
+  115.934 215.596 lineto
+  116.026 209.711 lineto
+  116.118 205.277 lineto
+  116.209 202.058 lineto
+  116.301 201.737 lineto
+  116.393 201.574 lineto
+  116.485 200.489 lineto
+  116.576 201.919 lineto
+  116.668 207.905 lineto
+  116.76 217.733 lineto
+  116.852 231.282 lineto
+  116.943 247.82 lineto
+  117.035 270.205 lineto
+  117.127 295.076 lineto
+  117.219 314.667 lineto
+  117.311 323.117 lineto
+  117.402 318.636 lineto
+  117.494 304.239 lineto
+  117.586 283.858 lineto
+  117.678 266.674 lineto
+  117.769 254.172 lineto
+  117.861 249.732 lineto
+  117.953 253.474 lineto
+  118.045 263.814 lineto
+  118.137 275.613 lineto
+  118.228 284.418 lineto
+  118.32 284.66 lineto
+  118.412 276.728 lineto
+  118.504 261.171 lineto
+  118.595 241.652 lineto
+  118.687 224.598 lineto
+  118.779 211.533 lineto
+  118.871 203.331 lineto
+  118.962 198.946 lineto
+  119.054 199.566 lineto
+  119.146 203.952 lineto
+  119.238 209.393 lineto
+  119.33 211.772 lineto
+  119.421 210.221 lineto
+  119.513 207.96 lineto
+  119.605 208.021 lineto
+  119.697 210.785 lineto
+  119.788 216.273 lineto
+  119.88 224.406 lineto
+  119.972 232.674 lineto
+  120.064 237.979 lineto
+  120.156 234.154 lineto
+  120.247 224.829 lineto
+  120.339 214.615 lineto
+  120.431 205.343 lineto
+  120.523 201.86 lineto
+  120.614 202.917 lineto
+  120.706 202.936 lineto
+  120.798 197.107 lineto
+  120.89 190.689 lineto
+  120.981 186.273 lineto
+  121.073 185.325 lineto
+  121.165 187.098 lineto
+  121.257 191.744 lineto
+  121.349 198.846 lineto
+  121.44 210.336 lineto
+  121.532 229.198 lineto
+  121.624 249.989 lineto
+  121.716 262.784 lineto
+  121.807 265.884 lineto
+  121.899 259.158 lineto
+  121.991 248.057 lineto
+  122.083 235.537 lineto
+  122.175 227.817 lineto
+  122.266 228.5 lineto
+  122.358 236.703 lineto
+  122.45 249.888 lineto
+  122.542 268.078 lineto
+  122.633 288.914 lineto
+  122.725 307.785 lineto
+  122.817 322.104 lineto
+  122.909 326.862 lineto
+  123.001 320.325 lineto
+  123.092 308.373 lineto
+  123.184 294.625 lineto
+  123.276 283.838 lineto
+  123.368 275.556 lineto
+  123.459 268.01 lineto
+  123.551 261.028 lineto
+  123.643 255.764 lineto
+  123.735 250.88 lineto
+  123.826 247.72 lineto
+  123.918 246.965 lineto
+  124.01 245.213 lineto
+  124.102 238.264 lineto
+  124.194 230.419 lineto
+  124.285 226.89 lineto
+  124.377 227.101 lineto
+  124.469 228.4 lineto
+  124.561 230.139 lineto
+  124.652 228.583 lineto
+  124.744 228.613 lineto
+  124.836 235.468 lineto
+  124.928 249.106 lineto
+  125.02 263.748 lineto
+  125.111 275.06 lineto
+  125.203 278.323 lineto
+  125.295 269.283 lineto
+  125.387 255.474 lineto
+  125.478 240.336 lineto
+  125.57 230.991 lineto
+  125.662 228.699 lineto
+  125.754 232.5 lineto
+  125.845 239.677 lineto
+  125.937 246.687 lineto
+  126.029 250.514 lineto
+  126.121 245.595 lineto
+  126.213 231.1 lineto
+  126.304 210.072 lineto
+  126.396 191.605 lineto
+  126.488 181.101 lineto
+  126.58 181.359 lineto
+  126.671 193.674 lineto
+  126.763 217.752 lineto
+  126.855 249.993 lineto
+  126.947 280.589 lineto
+  127.039 298.798 lineto
+  127.13 303.091 lineto
+  127.222 297.698 lineto
+  127.314 287.717 lineto
+  127.406 279.745 lineto
+  127.497 276.936 lineto
+  127.589 280.274 lineto
+  127.681 287.212 lineto
+  127.773 290.974 lineto
+  127.864 289.71 lineto
+  127.956 284.503 lineto
+  128.048 277.797 lineto
+  128.14 269.588 lineto
+  128.232 258.505 lineto
+  128.323 248.436 lineto
+  128.415 237.771 lineto
+  128.507 224.85 lineto
+  128.599 210.974 lineto
+  128.69 199.632 lineto
+  128.782 193.125 lineto
+  128.874 192.729 lineto
+  128.966 200.061 lineto
+  129.058 216.599 lineto
+  129.149 238.781 lineto
+  129.241 262.645 lineto
+  129.333 286.596 lineto
+  129.425 303.137 lineto
+  129.516 308.186 lineto
+  129.608 299.667 lineto
+  129.7 278.986 lineto
+  129.792 259.869 lineto
+  129.883 247.071 lineto
+  129.975 242.052 lineto
+  130.067 241.624 lineto
+  130.159 240.888 lineto
+  130.251 234.311 lineto
+  130.342 223.771 lineto
+  130.434 212.315 lineto
+  130.526 203.143 lineto
+  130.618 199.989 lineto
+  130.709 204.729 lineto
+  130.801 215.662 lineto
+  130.893 231.747 lineto
+  130.985 250.285 lineto
+  131.077 262.079 lineto
+  131.168 265.363 lineto
+  131.26 263.973 lineto
+  131.352 260.697 lineto
+  131.444 257.343 lineto
+  131.535 249.113 lineto
+  131.627 238.109 lineto
+  131.719 228.436 lineto
+  131.811 224.552 lineto
+  131.902 224.656 lineto
+  131.994 227.024 lineto
+  132.086 232.079 lineto
+  132.178 242.236 lineto
+  132.27 256.249 lineto
+  132.361 270.327 lineto
+  132.453 282.478 lineto
+  132.545 290.966 lineto
+  132.637 296.186 lineto
+  132.728 298.379 lineto
+  132.82 297.025 lineto
+  132.912 293.735 lineto
+  133.004 286.113 lineto
+  133.096 271.452 lineto
+  133.187 252.335 lineto
+  133.279 233.285 lineto
+  133.371 217.769 lineto
+  133.463 208.157 lineto
+  133.554 206.984 lineto
+  133.646 214.149 lineto
+  133.738 229.594 lineto
+  133.83 252.971 lineto
+  133.921 280.535 lineto
+  134.013 303.98 lineto
+  134.105 312.801 lineto
+  134.197 304.987 lineto
+  134.289 280.941 lineto
+  134.38 251.625 lineto
+  134.472 227.818 lineto
+  134.564 215.612 lineto
+  134.656 214.683 lineto
+  134.747 217.567 lineto
+  134.839 221.398 lineto
+  134.931 226.809 lineto
+  135.023 231.901 lineto
+  135.115 236.514 lineto
+  135.206 240.346 lineto
+  135.298 237.006 lineto
+  135.39 228.848 lineto
+  135.482 220.236 lineto
+  135.573 216.275 lineto
+  135.665 218.501 lineto
+  135.757 226.845 lineto
+  135.849 239.411 lineto
+  135.94 253.809 lineto
+  136.032 265.202 lineto
+  136.124 268.908 lineto
+  136.216 264.182 lineto
+  136.308 255.848 lineto
+  136.399 248.571 lineto
+  136.491 245.16 lineto
+  136.583 248.218 lineto
+  136.675 257.892 lineto
+  136.766 272.183 lineto
+  136.858 292.527 lineto
+  136.95 313.136 lineto
+  137.042 325.708 lineto
+  137.134 325.622 lineto
+  137.225 314.832 lineto
+  137.317 299.718 lineto
+  137.409 287.484 lineto
+  137.501 280.63 lineto
+  137.592 280.806 lineto
+  137.684 287.618 lineto
+  137.776 296.671 lineto
+  137.868 298.1 lineto
+  137.959 293.023 lineto
+  138.051 287.522 lineto
+  138.143 284.592 lineto
+  138.235 285.363 lineto
+  138.327 290.544 lineto
+  138.418 299.209 lineto
+  138.51 306.143 lineto
+  138.602 309.315 lineto
+  138.694 307.74 lineto
+  138.785 301.022 lineto
+  138.877 289.746 lineto
+  138.969 280.335 lineto
+  139.061 275.877 lineto
+  139.153 276.956 lineto
+  139.244 279.575 lineto
+  139.336 276.146 lineto
+  139.428 261.125 lineto
+  139.52 237.526 lineto
+  139.611 213.255 lineto
+  139.703 195.989 lineto
+  139.795 189.952 lineto
+  139.887 196.788 lineto
+  139.978 214.226 lineto
+  140.07 239.35 lineto
+  140.162 267.415 lineto
+  140.254 290.813 lineto
+  140.346 296.243 lineto
+  140.437 280.594 lineto
+  140.529 258.051 lineto
+  140.621 240.491 lineto
+  140.713 232.799 lineto
+  140.804 234.508 lineto
+  140.896 241.836 lineto
+  140.988 251.74 lineto
+  141.08 263.996 lineto
+  141.172 277.756 lineto
+  141.263 291.584 lineto
+  141.355 301.477 lineto
+  141.447 304.805 lineto
+  141.539 301.086 lineto
+  141.63 292.428 lineto
+  141.722 280.9 lineto
+  141.814 269.848 lineto
+  141.906 261.082 lineto
+  141.997 256.119 lineto
+  142.089 255.335 lineto
+  142.181 259.303 lineto
+  142.273 267.675 lineto
+  142.365 275.552 lineto
+  142.456 277.524 lineto
+  142.548 267.3 lineto
+  142.64 245.249 lineto
+  142.732 221.481 lineto
+  142.823 201.135 lineto
+  142.915 186.753 lineto
+  143.007 180.67 lineto
+  143.099 185.77 lineto
+  143.191 199.993 lineto
+  143.282 219.825 lineto
+  143.374 242.161 lineto
+  143.466 258.865 lineto
+  143.558 265.011 lineto
+  143.649 264.029 lineto
+  143.741 262.972 lineto
+  143.833 263.81 lineto
+  143.925 266.86 lineto
+  144.017 271.164 lineto
+  144.108 278.173 lineto
+  144.2 288.172 lineto
+  144.292 298.794 lineto
+  144.384 300.567 lineto
+  144.475 289.121 lineto
+  144.567 275.155 lineto
+  144.659 258.654 lineto
+  144.751 240.322 lineto
+  144.842 224.165 lineto
+  144.934 214.836 lineto
+  145.026 213.329 lineto
+  145.118 221.481 lineto
+  145.21 237.625 lineto
+  145.301 255.375 lineto
+  145.393 268.176 lineto
+  145.485 272.195 lineto
+  145.577 267.52 lineto
+  145.668 259.055 lineto
+  145.76 249.482 lineto
+  145.852 240.837 lineto
+  145.944 236.958 lineto
+  146.036 240.028 lineto
+  146.127 249.695 lineto
+  146.219 263.896 lineto
+  146.311 274.877 lineto
+  146.403 278.129 lineto
+  146.494 273.702 lineto
+  146.586 261.551 lineto
+  146.678 249.1 lineto
+  146.77 240.165 lineto
+  146.861 234.659 lineto
+  146.953 231.34 lineto
+  147.045 230.27 lineto
+  147.137 232.406 lineto
+  147.229 238.154 lineto
+  147.32 246.081 lineto
+  147.412 249.621 lineto
+  147.504 250.876 lineto
+  147.596 252.517 lineto
+  147.687 257.222 lineto
+  147.779 262.242 lineto
+  147.871 264.806 lineto
+  147.963 266.626 lineto
+  148.055 269.596 lineto
+  148.146 270.16 lineto
+  148.238 265.213 lineto
+  148.33 251.918 lineto
+  148.422 235.741 lineto
+  148.513 219.389 lineto
+  148.605 202.973 lineto
+  148.697 191.603 lineto
+  148.789 189.264 lineto
+  148.88 197.249 lineto
+  148.972 214.782 lineto
+  149.064 239.203 lineto
+  149.156 263.532 lineto
+  149.248 275.25 lineto
+  149.339 279.619 lineto
+  149.431 279.055 lineto
+  149.523 275.833 lineto
+  149.615 271.867 lineto
+  149.706 270.68 lineto
+  149.798 273.329 lineto
+  149.89 279.111 lineto
+  149.982 283.803 lineto
+  150.074 285.897 lineto
+  150.165 282.407 lineto
+  150.257 272.926 lineto
+  150.349 262.019 lineto
+  150.441 254.4 lineto
+  150.532 252.877 lineto
+  150.624 259.739 lineto
+  150.716 272.089 lineto
+  150.808 282.345 lineto
+  150.899 282.69 lineto
+  150.991 276.185 lineto
+  151.083 265.282 lineto
+  151.175 256.181 lineto
+  151.267 251.131 lineto
+  151.358 249.357 lineto
+  151.45 251.339 lineto
+  151.542 260.435 lineto
+  151.634 270.557 lineto
+  151.725 269.745 lineto
+  151.817 260.28 lineto
+  151.909 245.816 lineto
+  152.001 231.64 lineto
+  152.093 224.103 lineto
+  152.184 220.206 lineto
+  152.276 218.271 lineto
+  152.368 216.089 lineto
+  152.46 212.415 lineto
+  152.551 207.465 lineto
+  152.643 201.896 lineto
+  152.735 201.299 lineto
+  152.827 205.297 lineto
+  152.918 212.396 lineto
+  153.01 223.464 lineto
+  153.102 234.694 lineto
+  153.194 244.122 lineto
+  153.286 252.247 lineto
+  153.377 260.877 lineto
+  153.469 269.252 lineto
+  153.561 278.13 lineto
+  153.653 285.879 lineto
+  153.744 289.186 lineto
+  153.836 283.532 lineto
+  153.928 269.476 lineto
+  154.02 255.18 lineto
+  154.112 245.446 lineto
+  154.203 241.38 lineto
+  154.295 243.027 lineto
+  154.387 245.77 lineto
+  154.479 249.217 lineto
+  154.57 251.967 lineto
+  154.662 253.137 lineto
+  154.754 252.352 lineto
+  154.846 248.81 lineto
+  154.937 244.556 lineto
+  155.029 243.36 lineto
+  155.121 247.515 lineto
+  155.213 255.619 lineto
+  155.305 264.22 lineto
+  155.396 265.872 lineto
+  155.488 257.504 lineto
+  155.58 244.725 lineto
+  155.672 231.672 lineto
+  155.763 222.656 lineto
+  155.855 220.308 lineto
+  155.947 225.631 lineto
+  156.039 238.05 lineto
+  156.131 251.989 lineto
+  156.222 262.898 lineto
+  156.314 270.796 lineto
+  156.406 271.899 lineto
+  156.498 266.321 lineto
+  156.589 260.674 lineto
+  156.681 257.67 lineto
+  156.773 257.398 lineto
+  156.865 257.706 lineto
+  156.956 252.162 lineto
+  157.048 245.155 lineto
+  157.14 237.978 lineto
+  157.232 233.36 lineto
+  157.324 231.958 lineto
+  157.415 231.666 lineto
+  157.507 232.771 lineto
+  157.599 239.148 lineto
+  157.691 250.846 lineto
+  157.782 264.019 lineto
+  157.874 272.512 lineto
+  157.966 278.111 lineto
+  158.058 282.811 lineto
+  158.15 285.791 lineto
+  158.241 288.626 lineto
+  158.333 289.155 lineto
+  158.425 286.739 lineto
+  158.517 284.452 lineto
+  158.608 284.144 lineto
+  158.7 285.196 lineto
+  158.792 286.653 lineto
+  158.884 285.441 lineto
+  158.975 281.237 lineto
+  159.067 273.25 lineto
+  159.159 264.43 lineto
+  159.251 255.73 lineto
+  159.343 245.975 lineto
+  159.434 233.949 lineto
+  159.526 226.103 lineto
+  159.618 224.916 lineto
+  159.71 230.074 lineto
+  159.801 237.97 lineto
+  159.893 244.691 lineto
+  159.985 245.788 lineto
+  160.077 235.68 lineto
+  160.169 216.495 lineto
+  160.26 193.672 lineto
+  160.352 172.093 lineto
+  160.444 157.896 lineto
+  160.536 156.708 lineto
+  160.627 170.622 lineto
+  160.719 195.672 lineto
+  160.811 227.031 lineto
+  160.903 257.081 lineto
+  160.994 275.328 lineto
+  161.086 281.832 lineto
+  161.178 283.394 lineto
+  161.27 282.862 lineto
+  161.362 279.751 lineto
+  161.453 276.239 lineto
+  161.545 273.138 lineto
+  161.637 271.898 lineto
+  161.729 271.858 lineto
+  161.82 271.442 lineto
+  161.912 266.746 lineto
+  162.004 261.342 lineto
+  162.096 258.036 lineto
+  162.188 253.751 lineto
+  162.279 247.22 lineto
+  162.371 236.793 lineto
+  162.463 223.923 lineto
+  162.555 210.821 lineto
+  162.646 199.087 lineto
+  162.738 193.093 lineto
+  162.83 195.033 lineto
+  162.922 204.847 lineto
+  163.014 222.377 lineto
+  163.105 243.278 lineto
+  163.197 260.052 lineto
+  163.289 267.967 lineto
+  163.381 265.796 lineto
+  163.472 259.538 lineto
+  163.564 254.693 lineto
+  163.656 253.365 lineto
+  163.748 254.611 lineto
+  163.839 258.42 lineto
+  163.931 267.409 lineto
+  164.023 281.989 lineto
+  164.115 299.302 lineto
+  164.207 311.967 lineto
+  164.298 312.418 lineto
+  164.39 296.249 lineto
+  164.482 274.767 lineto
+  164.574 253.234 lineto
+  164.665 233.374 lineto
+  164.757 218.354 lineto
+  164.849 207.005 lineto
+  164.941 199.616 lineto
+  165.033 196.166 lineto
+  165.124 194.676 lineto
+  165.216 198.124 lineto
+  165.308 206.981 lineto
+  165.4 221.693 lineto
+  165.491 240.948 lineto
+  165.583 262.656 lineto
+  165.675 283.177 lineto
+  165.767 296.924 lineto
+  165.858 301.438 lineto
+  165.95 297.525 lineto
+  166.042 288.989 lineto
+  166.134 279.687 lineto
+  166.226 271.847 lineto
+  166.317 267.66 lineto
+  166.409 269.673 lineto
+  166.501 275.964 lineto
+  166.593 284.362 lineto
+  166.684 292.597 lineto
+  166.776 297.706 lineto
+  166.868 299.086 lineto
+  166.96 297.594 lineto
+  167.052 296.637 lineto
+  167.143 297.252 lineto
+  167.235 299.083 lineto
+  167.327 300.965 lineto
+  167.419 299.498 lineto
+  167.51 292.597 lineto
+  167.602 278.735 lineto
+  167.694 260.654 lineto
+  167.786 242.959 lineto
+  167.877 229.461 lineto
+  167.969 222.641 lineto
+  168.061 224.543 lineto
+  168.153 235.057 lineto
+  168.245 251.142 lineto
+  168.336 267.181 lineto
+  168.428 275.879 lineto
+  168.52 272.762 lineto
+  168.612 260.642 lineto
+  168.703 245.092 lineto
+  168.795 233.467 lineto
+  168.887 228.871 lineto
+  168.979 231.798 lineto
+  169.071 242.26 lineto
+  169.162 260.302 lineto
+  169.254 282.832 lineto
+  169.346 301.5 lineto
+  169.438 304.795 lineto
+  169.529 293.876 lineto
+  169.621 275.92 lineto
+  169.713 258.563 lineto
+  169.805 247.694 lineto
+  169.896 244.621 lineto
+  169.988 247.303 lineto
+  170.08 253.402 lineto
+  170.172 258.413 lineto
+  170.264 258.868 lineto
+  170.355 253.119 lineto
+  170.447 244.253 lineto
+  170.539 234.535 lineto
+  170.631 223.889 lineto
+  170.722 216.29 lineto
+  170.814 213.759 lineto
+  170.906 214.194 lineto
+  170.998 214.412 lineto
+  171.09 214.902 lineto
+  171.181 214.416 lineto
+  171.273 214.571 lineto
+  171.365 217.14 lineto
+  171.457 221.956 lineto
+  171.548 229.831 lineto
+  171.64 237.239 lineto
+  171.732 243.367 lineto
+  171.824 249.307 lineto
+  171.915 252.29 lineto
+  172.007 251.594 lineto
+  172.099 248.873 lineto
+  172.191 247.114 lineto
+  172.283 249.842 lineto
+  172.374 256.567 lineto
+  172.466 264.731 lineto
+  172.558 270.022 lineto
+  172.65 269.244 lineto
+  172.741 265.392 lineto
+  172.833 261.591 lineto
+  172.925 258.613 lineto
+  173.017 254.875 lineto
+  173.109 251.774 lineto
+  173.2 248.932 lineto
+  173.292 247.791 lineto
+  173.384 247.978 lineto
+  173.476 248.877 lineto
+  173.567 248.594 lineto
+  173.659 250.22 lineto
+  173.751 255.924 lineto
+  173.843 266.517 lineto
+  173.934 280.48 lineto
+  174.026 294.266 lineto
+  174.118 302.509 lineto
+  174.21 299.891 lineto
+  174.302 283.145 lineto
+  174.393 258.955 lineto
+  174.485 238.3 lineto
+  174.577 226.899 lineto
+  174.669 225.018 lineto
+  174.76 233.278 lineto
+  174.852 250.267 lineto
+  174.944 270.924 lineto
+  175.036 290.357 lineto
+  175.128 301.163 lineto
+  175.219 301.88 lineto
+  175.311 290.777 lineto
+  175.403 274.98 lineto
+  175.495 258.799 lineto
+  175.586 247.162 lineto
+  175.678 240.479 lineto
+  175.77 239.843 lineto
+  175.862 245.099 lineto
+  175.953 253.83 lineto
+  176.045 262.664 lineto
+  176.137 269.689 lineto
+  176.229 274.086 lineto
+  176.321 278.78 lineto
+  176.412 285.185 lineto
+  176.504 293.211 lineto
+  176.596 301.072 lineto
+  176.688 308.482 lineto
+  176.779 312.371 lineto
+  176.871 311.665 lineto
+  176.963 306.519 lineto
+  177.055 299.807 lineto
+  177.147 296.837 lineto
+  177.238 298.657 lineto
+  177.33 305.029 lineto
+  177.422 312.313 lineto
+  177.514 316.698 lineto
+  177.605 315.681 lineto
+  177.697 306.337 lineto
+  177.789 288.429 lineto
+  177.881 265.464 lineto
+  177.972 243.444 lineto
+  178.064 225.929 lineto
+  178.156 217.445 lineto
+  178.248 218.147 lineto
+  178.34 225.887 lineto
+  178.431 239.812 lineto
+  178.523 257.931 lineto
+  178.615 275.762 lineto
+  178.707 285.101 lineto
+  178.798 283.579 lineto
+  178.89 271.605 lineto
+  178.982 261.243 lineto
+  179.074 257.57 lineto
+  179.166 261.909 lineto
+  179.257 270.897 lineto
+  179.349 283.118 lineto
+  179.441 293.077 lineto
+  179.533 298.456 lineto
+  179.624 295.833 lineto
+  179.716 287.598 lineto
+  179.808 277.267 lineto
+  179.9 264.605 lineto
+  179.991 254.006 lineto
+  180.083 248.926 lineto
+  180.175 247.768 lineto
+  180.267 249.258 lineto
+  180.359 250.884 lineto
+  180.45 250.71 lineto
+  180.542 246.176 lineto
+  180.634 241.827 lineto
+  180.726 239.05 lineto
+  180.817 241.436 lineto
+  180.909 248.259 lineto
+  181.001 256.057 lineto
+  181.093 261.755 lineto
+  181.185 264.625 lineto
+  181.276 267.685 lineto
+  181.368 269.94 lineto
+  181.46 266.754 lineto
+  181.552 253.199 lineto
+  181.643 231.631 lineto
+  181.735 204.062 lineto
+  181.827 171.209 lineto
+  181.919 145.043 lineto
+  182.011 132.364 lineto
+  182.102 134.405 lineto
+  182.194 151.355 lineto
+  182.286 178.387 lineto
+  182.378 201.073 lineto
+  182.469 212.805 lineto
+  182.561 215.081 lineto
+  182.653 204.133 lineto
+  182.745 193.797 lineto
+  182.836 189.255 lineto
+  182.928 191.68 lineto
+  183.02 198.859 lineto
+  183.112 210.033 lineto
+  183.204 219.087 lineto
+  183.295 217.948 lineto
+  183.387 201.786 lineto
+  183.479 176.776 lineto
+  183.571 145.821 lineto
+  183.662 121.256 lineto
+  183.754 110.343 lineto
+  183.846 116.67 lineto
+  183.938 136.587 lineto
+  184.03 164.732 lineto
+  184.121 195.188 lineto
+  184.213 217.601 lineto
+  184.305 228.227 lineto
+  184.397 233.138 lineto
+  184.488 236.793 lineto
+  184.58 240.614 lineto
+  184.672 246.826 lineto
+  184.764 256.765 lineto
+  184.855 265.673 lineto
+  184.947 267.784 lineto
+  185.039 261.547 lineto
+  185.131 246.628 lineto
+  185.223 232.05 lineto
+  185.314 222.389 lineto
+  185.406 218.332 lineto
+  185.498 223.316 lineto
+  185.59 235.413 lineto
+  185.681 249.632 lineto
+  185.773 257.667 lineto
+  185.865 252.635 lineto
+  185.957 239.366 lineto
+  186.049 224.92 lineto
+  186.14 216.686 lineto
+  186.232 217.347 lineto
+  186.324 229.386 lineto
+  186.416 249.36 lineto
+  186.507 272.193 lineto
+  186.599 285.086 lineto
+  186.691 286.481 lineto
+  186.783 278.425 lineto
+  186.874 267.628 lineto
+  186.966 256.163 lineto
+  187.058 249.076 lineto
+  187.15 246.215 lineto
+  187.242 245.814 lineto
+  187.333 247.457 lineto
+  187.425 247.098 lineto
+  187.517 241.655 lineto
+  187.609 231.954 lineto
+  187.7 219.43 lineto
+  187.792 208.345 lineto
+  187.884 203.337 lineto
+  187.976 204.451 lineto
+  188.068 212.303 lineto
+  188.159 224.746 lineto
+  188.251 236.699 lineto
+  188.343 245.927 lineto
+  188.435 250.726 lineto
+  188.526 250.027 lineto
+  188.618 249.262 lineto
+  188.71 247.568 lineto
+  188.802 245.255 lineto
+  188.893 239.438 lineto
+  188.985 227.517 lineto
+  189.077 213.723 lineto
+  189.169 204.888 lineto
+  189.261 205.811 lineto
+  189.352 216.088 lineto
+  189.444 232.084 lineto
+  189.536 252.695 lineto
+  189.628 276.548 lineto
+  189.719 293.823 lineto
+  189.811 299.387 lineto
+  189.903 290.069 lineto
+  189.995 267.095 lineto
+  190.087 241.878 lineto
+  190.178 221.061 lineto
+  190.27 209.528 lineto
+  190.362 209.149 lineto
+  190.454 219.239 lineto
+  190.545 236.05 lineto
+  190.637 256.785 lineto
+  190.729 278.21 lineto
+  190.821 294.094 lineto
+  190.912 297.259 lineto
+  191.004 295.06 lineto
+  191.096 293.415 lineto
+  191.188 286.905 lineto
+  191.28 275.995 lineto
+  191.371 263.366 lineto
+  191.463 244.762 lineto
+  191.555 221.08 lineto
+  191.647 204.493 lineto
+  191.738 199.184 lineto
+  191.83 204.72 lineto
+  191.922 218.36 lineto
+  192.014 237.005 lineto
+  192.106 258.88 lineto
+  192.197 276.78 lineto
+  192.289 281.747 lineto
+  192.381 271.167 lineto
+  192.473 252.874 lineto
+  192.564 237.699 lineto
+  192.656 232.25 lineto
+  192.748 240.24 lineto
+  192.84 260.318 lineto
+  192.931 287.376 lineto
+  193.023 313.728 lineto
+  193.115 329.575 lineto
+  193.207 326.177 lineto
+  193.299 306.988 lineto
+  193.39 280.994 lineto
+  193.482 255.887 lineto
+  193.574 236.897 lineto
+  193.666 225.059 lineto
+  193.757 222.046 lineto
+  193.849 227.369 lineto
+  193.941 233.394 lineto
+  194.033 230.492 lineto
+  194.125 222.84 lineto
+  194.216 219.72 lineto
+  194.308 224.572 lineto
+  194.4 237.238 lineto
+  194.492 255.225 lineto
+  194.583 271.592 lineto
+  194.675 284.062 lineto
+  194.767 292.617 lineto
+  194.859 297.389 lineto
+  194.95 297.913 lineto
+  195.042 291.985 lineto
+  195.134 281 lineto
+  195.226 271.422 lineto
+  195.318 265.092 lineto
+  195.409 261.874 lineto
+  195.501 261.654 lineto
+  195.593 261.12 lineto
+  195.685 256.779 lineto
+  195.776 247.503 lineto
+  195.868 240.188 lineto
+  195.96 236.626 lineto
+  196.052 234.474 lineto
+  196.144 230.286 lineto
+  196.235 225.675 lineto
+  196.327 223.85 lineto
+  196.419 227.158 lineto
+  196.511 234.346 lineto
+  196.602 243.792 lineto
+  196.694 250.693 lineto
+  196.786 254.576 lineto
+  196.878 249.025 lineto
+  196.969 232.644 lineto
+  197.061 212.657 lineto
+  197.153 195.919 lineto
+  197.245 188.337 lineto
+  197.337 190.719 lineto
+  197.428 203.395 lineto
+  197.52 219.625 lineto
+  197.612 239.034 lineto
+  197.704 249.513 lineto
+  197.795 251.732 lineto
+  197.887 250.451 lineto
+  197.979 247.336 lineto
+  198.071 245.105 lineto
+  198.163 243.916 lineto
+  198.254 244.73 lineto
+  198.346 248.613 lineto
+  198.438 251.574 lineto
+  198.53 251.368 lineto
+  198.621 246.518 lineto
+  198.713 240.485 lineto
+  198.805 234.025 lineto
+  198.897 230.369 lineto
+  198.988 232.778 lineto
+  199.08 239.036 lineto
+  199.172 244.395 lineto
+  199.264 247.939 lineto
+  199.356 249.217 lineto
+  199.447 246.723 lineto
+  199.539 244.78 lineto
+  199.631 247.809 lineto
+  199.723 256.568 lineto
+  199.814 269.222 lineto
+  199.906 281.994 lineto
+  199.998 286.938 lineto
+  200.09 277.715 lineto
+  200.182 256.84 lineto
+  200.273 233.65 lineto
+  200.365 215.173 lineto
+  200.457 205.119 lineto
+  200.549 203.395 lineto
+  200.64 208.602 lineto
+  200.732 219.965 lineto
+  200.824 233.21 lineto
+  200.916 242.878 lineto
+  201.008 241.467 lineto
+  201.099 229.693 lineto
+  201.191 218.734 lineto
+  201.283 214.637 lineto
+  201.375 221.052 lineto
+  201.466 235.806 lineto
+  201.558 255.993 lineto
+  201.65 277.97 lineto
+  201.742 296.709 lineto
+  201.833 299.579 lineto
+  201.925 288.052 lineto
+  202.017 270.687 lineto
+  202.109 251.798 lineto
+  202.201 235.407 lineto
+  202.292 223.118 lineto
+  202.384 217.028 lineto
+  202.476 218.534 lineto
+  202.568 226.756 lineto
+DashesProc stroke
+newpath
+  202.659 239.123 moveto
+  202.751 248.94 lineto
+  202.843 248.579 lineto
+  202.935 242.191 lineto
+  203.027 234.802 lineto
+  203.118 229.026 lineto
+  203.21 224.099 lineto
+  203.302 221.404 lineto
+  203.394 218.854 lineto
+  203.485 216.584 lineto
+  203.577 216.218 lineto
+  203.669 219.398 lineto
+  203.761 225.662 lineto
+  203.852 233.881 lineto
+  203.944 241.64 lineto
+  204.036 249.658 lineto
+  204.128 255.639 lineto
+  204.22 259.923 lineto
+  204.311 260.298 lineto
+  204.403 259.689 lineto
+  204.495 260 lineto
+  204.587 259.728 lineto
+  204.678 258.497 lineto
+  204.77 256.271 lineto
+  204.862 253.535 lineto
+  204.954 250.776 lineto
+  205.046 249.45 lineto
+  205.137 248.133 lineto
+  205.229 246.868 lineto
+  205.321 250.478 lineto
+  205.413 258.586 lineto
+  205.504 268.311 lineto
+  205.596 276.27 lineto
+  205.688 280.407 lineto
+  205.78 279.877 lineto
+  205.871 275.416 lineto
+  205.963 271.176 lineto
+  206.055 270.066 lineto
+  206.147 271.492 lineto
+  206.239 274.963 lineto
+  206.33 277.468 lineto
+  206.422 282.08 lineto
+  206.514 283.41 lineto
+  206.606 274.684 lineto
+  206.697 261.928 lineto
+  206.789 251.982 lineto
+  206.881 247.275 lineto
+  206.973 245.934 lineto
+  207.065 245.367 lineto
+  207.156 242.434 lineto
+  207.248 234.702 lineto
+  207.34 223.666 lineto
+  207.432 209.225 lineto
+  207.523 196.512 lineto
+  207.615 190.095 lineto
+  207.707 191.921 lineto
+  207.799 202.67 lineto
+  207.89 218.944 lineto
+  207.982 236.375 lineto
+  208.074 248.775 lineto
+  208.166 257.368 lineto
+  208.258 262.418 lineto
+  208.349 265.851 lineto
+  208.441 269.062 lineto
+  208.533 272.61 lineto
+  208.625 273.709 lineto
+  208.716 268.687 lineto
+  208.808 258.473 lineto
+  208.9 247.216 lineto
+  208.992 236.167 lineto
+  209.084 230.489 lineto
+  209.175 233.618 lineto
+  209.267 245.157 lineto
+  209.359 261.813 lineto
+  209.451 278.285 lineto
+  209.542 287.725 lineto
+  209.634 286.046 lineto
+  209.726 278.248 lineto
+  209.818 269.403 lineto
+  209.909 263.838 lineto
+  210.001 264.429 lineto
+  210.093 271.037 lineto
+  210.185 280.809 lineto
+  210.277 291.901 lineto
+  210.368 298.556 lineto
+  210.46 294.36 lineto
+  210.552 280.266 lineto
+  210.644 262.39 lineto
+  210.735 241.608 lineto
+  210.827 221.645 lineto
+  210.919 201.051 lineto
+  211.011 180.385 lineto
+  211.103 158.702 lineto
+  211.194 135.891 lineto
+  211.286 114.727 lineto
+  211.378 101.224 lineto
+  211.47 100.454 lineto
+  211.561 113.125 lineto
+  211.653 138.558 lineto
+  211.745 173.659 lineto
+  211.837 210.366 lineto
+  211.928 236.683 lineto
+  212.02 240.917 lineto
+  212.112 225.823 lineto
+  212.204 203.203 lineto
+  212.296 185.546 lineto
+  212.387 179.982 lineto
+  212.479 187.282 lineto
+  212.571 200.169 lineto
+  212.663 210.743 lineto
+  212.754 218.977 lineto
+  212.846 220.704 lineto
+  212.938 214.807 lineto
+  213.03 202.693 lineto
+  213.122 189.406 lineto
+  213.213 179.535 lineto
+  213.305 177.687 lineto
+  213.397 184.033 lineto
+  213.489 196.014 lineto
+  213.58 209.078 lineto
+  213.672 219.85 lineto
+  213.764 228.385 lineto
+  213.856 235.234 lineto
+  213.947 238.231 lineto
+  214.039 233.486 lineto
+  214.131 224.982 lineto
+  214.223 216.327 lineto
+  214.315 211.758 lineto
+  214.406 212.475 lineto
+  214.498 218.428 lineto
+  214.59 229.274 lineto
+  214.682 240.837 lineto
+  214.773 252.422 lineto
+  214.865 263.795 lineto
+  214.957 274.667 lineto
+  215.049 282.401 lineto
+  215.141 284.925 lineto
+  215.232 286.058 lineto
+  215.324 288.072 lineto
+  215.416 292.153 lineto
+  215.508 294.193 lineto
+  215.599 292.105 lineto
+  215.691 291.825 lineto
+  215.783 292.694 lineto
+  215.875 291.826 lineto
+  215.966 287.596 lineto
+  216.058 276.345 lineto
+  216.15 263.157 lineto
+  216.242 251.058 lineto
+  216.334 240.73 lineto
+  216.425 228.181 lineto
+  216.517 211.705 lineto
+  216.609 198.653 lineto
+  216.701 194.773 lineto
+  216.792 200.305 lineto
+  216.884 213.382 lineto
+  216.976 232.839 lineto
+  217.068 258.964 lineto
+  217.16 286.262 lineto
+  217.251 304.893 lineto
+  217.343 307.588 lineto
+  217.435 295.392 lineto
+  217.527 275.985 lineto
+  217.618 257.102 lineto
+  217.71 240.913 lineto
+  217.802 231.511 lineto
+  217.894 228.884 lineto
+  217.985 231.629 lineto
+  218.077 237.088 lineto
+  218.169 243.809 lineto
+  218.261 246.08 lineto
+  218.353 243.292 lineto
+  218.444 237.63 lineto
+  218.536 229.719 lineto
+  218.628 222.142 lineto
+  218.72 215.705 lineto
+  218.811 213.177 lineto
+  218.903 215.604 lineto
+  218.995 221.506 lineto
+  219.087 229.789 lineto
+  219.179 241.579 lineto
+  219.27 254.363 lineto
+  219.362 265.425 lineto
+  219.454 275.254 lineto
+  219.546 278.108 lineto
+  219.637 272.205 lineto
+  219.729 263.495 lineto
+  219.821 252.393 lineto
+  219.913 242.473 lineto
+  220.005 236.438 lineto
+  220.096 232.861 lineto
+  220.188 230.44 lineto
+  220.28 232.52 lineto
+  220.372 237.068 lineto
+  220.463 242.225 lineto
+  220.555 243.569 lineto
+  220.647 237.809 lineto
+  220.739 228.387 lineto
+  220.83 219.974 lineto
+  220.922 216.14 lineto
+  221.014 218.336 lineto
+  221.106 224.975 lineto
+  221.198 231.812 lineto
+  221.289 237.427 lineto
+  221.381 241.946 lineto
+  221.473 241.895 lineto
+  221.565 238.195 lineto
+  221.656 233.342 lineto
+  221.748 230.744 lineto
+  221.84 231.414 lineto
+  221.932 235.067 lineto
+  222.024 241.272 lineto
+  222.115 248.851 lineto
+  222.207 254.157 lineto
+  222.299 254.571 lineto
+  222.391 249.116 lineto
+  222.482 240.753 lineto
+  222.574 232.47 lineto
+  222.666 227.336 lineto
+  222.758 229.403 lineto
+  222.849 238.722 lineto
+  222.941 252.865 lineto
+  223.033 267.407 lineto
+  223.125 279.861 lineto
+  223.217 284.326 lineto
+  223.308 276.357 lineto
+  223.4 263.208 lineto
+  223.492 252.098 lineto
+  223.584 244.759 lineto
+  223.675 241.004 lineto
+  223.767 242.513 lineto
+  223.859 250.274 lineto
+  223.951 262.913 lineto
+  224.043 277.771 lineto
+  224.134 289.073 lineto
+  224.226 295.984 lineto
+  224.318 296.082 lineto
+  224.41 290.209 lineto
+  224.501 279.034 lineto
+  224.593 264.687 lineto
+  224.685 246.086 lineto
+  224.777 225.15 lineto
+  224.868 204.811 lineto
+  224.96 191.367 lineto
+  225.052 188.572 lineto
+  225.144 196.142 lineto
+  225.236 210.329 lineto
+  225.327 225.4 lineto
+  225.419 236.383 lineto
+  225.511 242.909 lineto
+  225.603 242.044 lineto
+  225.694 231.172 lineto
+  225.786 212.419 lineto
+  225.878 192.835 lineto
+  225.97 176.582 lineto
+  226.062 167.261 lineto
+  226.153 167.309 lineto
+  226.245 177.487 lineto
+  226.337 195.466 lineto
+  226.429 217.324 lineto
+  226.52 238.169 lineto
+  226.612 253.322 lineto
+  226.704 257.072 lineto
+  226.796 248.05 lineto
+  226.887 231.991 lineto
+  226.979 216.517 lineto
+  227.071 208.533 lineto
+  227.163 210.503 lineto
+  227.255 218.753 lineto
+  227.346 229.199 lineto
+  227.438 241.148 lineto
+  227.53 249.84 lineto
+  227.622 250.731 lineto
+  227.713 243.411 lineto
+  227.805 230.892 lineto
+  227.897 217.816 lineto
+  227.989 207.785 lineto
+  228.081 200.839 lineto
+  228.172 198.49 lineto
+  228.264 201.086 lineto
+  228.356 208.212 lineto
+  228.448 220.121 lineto
+  228.539 236.492 lineto
+  228.631 255.864 lineto
+  228.723 273.225 lineto
+  228.815 287.972 lineto
+  228.906 295.441 lineto
+  228.998 289.502 lineto
+  229.09 271.67 lineto
+  229.182 243.131 lineto
+  229.274 213.419 lineto
+  229.365 188.603 lineto
+  229.457 172.972 lineto
+  229.549 168.455 lineto
+  229.641 174.363 lineto
+  229.732 187.335 lineto
+  229.824 201.809 lineto
+  229.916 211.67 lineto
+  230.008 216.015 lineto
+  230.1 217.14 lineto
+  230.191 215.822 lineto
+  230.283 213.861 lineto
+  230.375 209.624 lineto
+  230.467 206.837 lineto
+  230.558 208.36 lineto
+  230.65 212.555 lineto
+  230.742 216.252 lineto
+  230.834 215.631 lineto
+  230.925 214.652 lineto
+  231.017 215.82 lineto
+  231.109 220.455 lineto
+  231.201 227.22 lineto
+  231.293 227.924 lineto
+  231.384 218.833 lineto
+  231.476 210.477 lineto
+  231.568 207.193 lineto
+  231.66 207.51 lineto
+  231.751 208.606 lineto
+  231.843 207.839 lineto
+  231.935 209.732 lineto
+  232.027 214.545 lineto
+  232.119 217.344 lineto
+  232.21 214.816 lineto
+  232.302 210.98 lineto
+  232.394 211.531 lineto
+  232.486 217.186 lineto
+  232.577 226.696 lineto
+  232.669 237.931 lineto
+  232.761 251.157 lineto
+  232.853 261.379 lineto
+  232.944 265.55 lineto
+  233.036 264.071 lineto
+  233.128 260.212 lineto
+  233.22 255.625 lineto
+  233.312 255.809 lineto
+  233.403 259.955 lineto
+  233.495 268.392 lineto
+  233.587 281.791 lineto
+  233.679 296.534 lineto
+  233.77 306.553 lineto
+  233.862 307.367 lineto
+  233.954 296.243 lineto
+  234.046 279.384 lineto
+  234.138 262.155 lineto
+  234.229 246.913 lineto
+  234.321 234.938 lineto
+  234.413 227.87 lineto
+  234.505 223.57 lineto
+  234.596 222.642 lineto
+  234.688 225.168 lineto
+  234.78 232.438 lineto
+  234.872 244.403 lineto
+  234.963 257.094 lineto
+  235.055 266.911 lineto
+  235.147 274.265 lineto
+  235.239 279.038 lineto
+  235.331 282.035 lineto
+  235.422 286.987 lineto
+  235.514 292.731 lineto
+  235.606 297.732 lineto
+  235.698 297.508 lineto
+  235.789 295.388 lineto
+  235.881 292.747 lineto
+  235.973 288.15 lineto
+  236.065 276.788 lineto
+  236.157 258.067 lineto
+  236.248 235.75 lineto
+  236.34 211.35 lineto
+  236.432 193.786 lineto
+  236.524 186.777 lineto
+  236.615 183.442 lineto
+  236.707 176.756 lineto
+  236.799 170.553 lineto
+  236.891 164.056 lineto
+  236.982 160.066 lineto
+  237.074 155.139 lineto
+  237.166 142.253 lineto
+  237.258 122.405 lineto
+  237.35 107.532 lineto
+  237.441 104.454 lineto
+  237.533 114.273 lineto
+  237.625 135.597 lineto
+  237.717 165.047 lineto
+  237.808 191.51 lineto
+  237.9 206.053 lineto
+  237.992 208.191 lineto
+  238.084 192.142 lineto
+  238.176 167.648 lineto
+  238.267 148.607 lineto
+  238.359 143.738 lineto
+  238.451 155.273 lineto
+  238.543 180.697 lineto
+  238.634 214.822 lineto
+  238.726 251.554 lineto
+  238.818 280.046 lineto
+  238.91 296.381 lineto
+  239.002 299.938 lineto
+  239.093 289.272 lineto
+  239.185 267.262 lineto
+  239.277 242.426 lineto
+  239.369 218.541 lineto
+  239.46 200.065 lineto
+  239.552 189.135 lineto
+  239.644 186.085 lineto
+  239.736 189.535 lineto
+  239.827 195.951 lineto
+  239.919 202.683 lineto
+  240.011 210.148 lineto
+  240.103 216.673 lineto
+  240.195 214.761 lineto
+  240.286 205.107 lineto
+  240.378 191.856 lineto
+  240.47 180.593 lineto
+  240.562 174.221 lineto
+  240.653 175.927 lineto
+  240.745 184.21 lineto
+  240.837 197.685 lineto
+  240.929 217.74 lineto
+  241.021 240.662 lineto
+  241.112 257.956 lineto
+  241.204 258.864 lineto
+  241.296 243.348 lineto
+  241.388 215.466 lineto
+  241.479 186.663 lineto
+  241.571 159.63 lineto
+  241.663 139.653 lineto
+  241.755 129.574 lineto
+  241.846 126.878 lineto
+  241.938 128.223 lineto
+  242.03 129.585 lineto
+  242.122 129.359 lineto
+  242.214 122.992 lineto
+  242.305 112.575 lineto
+  242.397 103.796 lineto
+  242.489 98.4152 lineto
+  242.581 96.9188 lineto
+  242.672 98.8487 lineto
+  242.764 104.159 lineto
+  242.856 113.629 lineto
+  242.948 127.479 lineto
+  243.04 142.006 lineto
+  243.131 156.516 lineto
+  243.223 172.936 lineto
+  243.315 189.145 lineto
+  243.407 203.833 lineto
+  243.498 216.303 lineto
+  243.59 224.98 lineto
+  243.682 229.447 lineto
+  243.774 230.612 lineto
+  243.865 228.87 lineto
+  243.957 219.892 lineto
+  244.049 205.67 lineto
+  244.141 190.269 lineto
+  244.233 176.475 lineto
+  244.324 167.96 lineto
+  244.416 167.677 lineto
+  244.508 175.066 lineto
+  244.6 185.308 lineto
+  244.691 194.579 lineto
+  244.783 199.378 lineto
+  244.875 196.39 lineto
+  244.967 185.164 lineto
+  245.059 166.942 lineto
+  245.15 151.663 lineto
+  245.242 146.252 lineto
+  245.334 154.368 lineto
+  245.426 176.633 lineto
+  245.517 208.775 lineto
+  245.609 243.554 lineto
+  245.701 273.612 lineto
+  245.793 292.306 lineto
+  245.884 290.87 lineto
+  245.976 265.797 lineto
+  246.068 223.179 lineto
+  246.16 173.549 lineto
+  246.252 127.925 lineto
+  246.343 93.9108 lineto
+  246.435 74.8118 lineto
+  246.527 70.434 lineto
+  246.619 80.2792 lineto
+  246.71 98.6551 lineto
+  246.802 122.179 lineto
+  246.894 149.68 lineto
+  246.986 178.62 lineto
+  247.078 205.281 lineto
+  247.169 222.494 lineto
+  247.261 230.503 lineto
+  247.353 235.005 lineto
+  247.445 234.636 lineto
+  247.536 226.083 lineto
+  247.628 200.189 lineto
+  247.72 154.533 lineto
+  247.812 102.643 lineto
+  247.903 61.4954 lineto
+  247.995 37.1799 lineto
+  248.087 31.1022 lineto
+  248.179 39.5257 lineto
+  248.271 64.5814 lineto
+  248.362 103.815 lineto
+  248.454 151.152 lineto
+  248.546 193.357 lineto
+  248.638 210.082 lineto
+  248.729 193.809 lineto
+  248.821 156.955 lineto
+  248.913 114.297 lineto
+  249.005 75.6835 lineto
+  249.097 48.2448 lineto
+  249.188 31.8581 lineto
+  249.28 27 lineto
+  249.372 33.4293 lineto
+  249.464 47.3732 lineto
+  249.555 64.514 lineto
+  249.647 81.5494 lineto
+  249.739 96.3321 lineto
+  249.831 107.684 lineto
+  249.922 115.497 lineto
+  250.014 122.173 lineto
+  250.106 131.245 lineto
+  250.198 144.037 lineto
+  250.29 159.385 lineto
+  250.381 174.362 lineto
+  250.473 185.963 lineto
+  250.565 190.449 lineto
+  250.657 186.72 lineto
+  250.748 177.815 lineto
+  250.84 167.184 lineto
+  250.932 156.261 lineto
+  251.024 144.241 lineto
+  251.116 134.287 lineto
+  251.207 130.248 lineto
+  251.299 133.922 lineto
+  251.391 144.748 lineto
+  251.483 160.623 lineto
+  251.574 177.54 lineto
+  251.666 190.985 lineto
+  251.758 197.443 lineto
+  251.85 196.517 lineto
+  251.941 190.094 lineto
+  252.033 180.757 lineto
+  252.125 171.687 lineto
+  252.217 165.385 lineto
+  252.309 160.889 lineto
+  252.4 157.727 lineto
+  252.492 154.514 lineto
+  252.584 152.228 lineto
+  252.676 152.253 lineto
+  252.767 155.611 lineto
+  252.859 162.052 lineto
+  252.951 169.745 lineto
+  253.043 178.238 lineto
+  253.135 187.318 lineto
+  253.226 194.66 lineto
+  253.318 199.388 lineto
+  253.41 199.826 lineto
+  253.502 198.3 lineto
+  253.593 196.924 lineto
+  253.685 199.429 lineto
+  253.777 203.907 lineto
+  253.869 208.437 lineto
+  253.96 211.896 lineto
+  254.052 215.475 lineto
+  254.144 218.64 lineto
+  254.236 218.284 lineto
+  254.328 212.125 lineto
+  254.419 203.678 lineto
+  254.511 197.207 lineto
+  254.603 195.237 lineto
+  254.695 196.999 lineto
+  254.786 202.731 lineto
+  254.878 211.275 lineto
+  254.97 219.909 lineto
+  255.062 229.737 lineto
+  255.154 240.093 lineto
+  255.245 248.369 lineto
+  255.337 250.37 lineto
+  255.429 252.203 lineto
+  255.521 253.273 lineto
+  255.612 251.065 lineto
+  255.704 246.933 lineto
+  255.796 241.181 lineto
+  255.888 232.918 lineto
+  255.979 220.664 lineto
+  256.071 207.761 lineto
+  256.163 199.152 lineto
+  256.255 196.621 lineto
+  256.347 198.488 lineto
+  256.438 203.067 lineto
+  256.53 208.015 lineto
+  256.622 211.804 lineto
+  256.714 212.562 lineto
+  256.805 211.372 lineto
+  256.897 207.051 lineto
+  256.989 202.012 lineto
+  257.081 200.268 lineto
+  257.173 205.119 lineto
+  257.264 212.278 lineto
+  257.356 210.643 lineto
+  257.448 197.279 lineto
+  257.54 177.482 lineto
+  257.631 152.217 lineto
+  257.723 125.83 lineto
+  257.815 107.098 lineto
+  257.907 102.139 lineto
+  257.998 111.971 lineto
+  258.09 134.819 lineto
+  258.182 166.938 lineto
+  258.274 204.166 lineto
+  258.366 239.225 lineto
+  258.457 261.102 lineto
+  258.549 269.966 lineto
+  258.641 266.827 lineto
+  258.733 257.52 lineto
+  258.824 250.753 lineto
+  258.916 246.583 lineto
+  259.008 241.154 lineto
+  259.1 234.95 lineto
+  259.192 230.527 lineto
+  259.283 227.371 lineto
+  259.375 224.592 lineto
+  259.467 221.445 lineto
+  259.559 218.113 lineto
+  259.65 215.355 lineto
+  259.742 215.181 lineto
+  259.834 217.635 lineto
+  259.926 222.188 lineto
+  260.018 227.653 lineto
+  260.109 233.585 lineto
+  260.201 242.354 lineto
+  260.293 253.585 lineto
+  260.385 264.105 lineto
+  260.476 270.414 lineto
+  260.568 270.03 lineto
+  260.66 266.064 lineto
+  260.752 260.506 lineto
+  260.843 248.315 lineto
+  260.935 232.037 lineto
+  261.027 219.149 lineto
+  261.119 212.671 lineto
+  261.211 213.162 lineto
+  261.302 218.694 lineto
+  261.394 225.414 lineto
+  261.486 232.951 lineto
+  261.578 240.559 lineto
+  261.669 247.506 lineto
+  261.761 252.202 lineto
+  261.853 256.677 lineto
+  261.945 261.76 lineto
+  262.037 267.152 lineto
+  262.128 269.31 lineto
+  262.22 264.365 lineto
+  262.312 257.389 lineto
+  262.404 250.204 lineto
+  262.495 246.24 lineto
+  262.587 246.365 lineto
+  262.679 251.62 lineto
+  262.771 261.719 lineto
+  262.862 275.11 lineto
+  262.954 288.135 lineto
+  263.046 296.222 lineto
+  263.138 297.507 lineto
+  263.23 293.926 lineto
+  263.321 285.244 lineto
+  263.413 274.856 lineto
+  263.505 265.361 lineto
+  263.597 254.991 lineto
+  263.688 246.194 lineto
+  263.78 239.241 lineto
+  263.872 234.086 lineto
+  263.964 231.406 lineto
+  264.056 229.465 lineto
+  264.147 228.841 lineto
+  264.239 231.024 lineto
+  264.331 235.777 lineto
+  264.423 242.075 lineto
+  264.514 247.917 lineto
+  264.606 240.405 lineto
+  264.698 223.33 lineto
+  264.79 207.97 lineto
+  264.881 197.637 lineto
+  264.973 193.459 lineto
+  265.065 190.837 lineto
+  265.157 188.1 lineto
+  265.249 185.203 lineto
+  265.34 180.951 lineto
+  265.432 174.364 lineto
+  265.524 168.754 lineto
+  265.616 167.071 lineto
+  265.707 169.936 lineto
+  265.799 180.96 lineto
+  265.891 199.837 lineto
+  265.983 222.413 lineto
+  266.075 242.556 lineto
+  266.166 257.844 lineto
+  266.258 267.301 lineto
+  266.35 268.879 lineto
+  266.442 261.929 lineto
+  266.533 252.311 lineto
+  266.625 244.107 lineto
+  266.717 239.08 lineto
+  266.809 237.821 lineto
+  266.9 240.075 lineto
+  266.992 244.073 lineto
+  267.084 249.399 lineto
+  267.176 254.077 lineto
+  267.268 255.512 lineto
+  267.359 253.962 lineto
+  267.451 251.64 lineto
+  267.543 251.223 lineto
+  267.635 251.719 lineto
+  267.726 252.566 lineto
+  267.818 255.6 lineto
+  267.91 262.256 lineto
+  268.002 269.992 lineto
+  268.094 275.321 lineto
+  268.185 282.166 lineto
+  268.277 283.818 lineto
+  268.369 277.017 lineto
+  268.461 264.91 lineto
+  268.552 252.053 lineto
+  268.644 240.686 lineto
+  268.736 231.571 lineto
+  268.828 226.818 lineto
+  268.919 229.343 lineto
+  269.011 238.856 lineto
+  269.103 253.232 lineto
+  269.195 266.622 lineto
+  269.287 277.254 lineto
+  269.378 284.172 lineto
+  269.47 287.52 lineto
+  269.562 286.594 lineto
+  269.654 282.007 lineto
+  269.745 276.406 lineto
+  269.837 269.585 lineto
+  269.929 260.634 lineto
+  270.021 250.699 lineto
+  270.113 243.101 lineto
+  270.204 239.733 lineto
+  270.296 240.938 lineto
+  270.388 242.681 lineto
+  270.48 242.313 lineto
+  270.571 234.255 lineto
+  270.663 221.767 lineto
+  270.755 209.192 lineto
+  270.847 198.603 lineto
+  270.938 189.553 lineto
+  271.03 184.799 lineto
+  271.122 186.655 lineto
+  271.214 195.495 lineto
+  271.306 210.526 lineto
+  271.397 228.568 lineto
+  271.489 245.204 lineto
+  271.581 257.113 lineto
+  271.673 265.188 lineto
+  271.764 268.563 lineto
+  271.856 268.651 lineto
+  271.948 268.367 lineto
+  272.04 269.544 lineto
+  272.132 270.223 lineto
+  272.223 268.727 lineto
+  272.315 262.994 lineto
+  272.407 251.902 lineto
+  272.499 238.825 lineto
+  272.59 230.181 lineto
+  272.682 228.171 lineto
+  272.774 232.219 lineto
+  272.866 240.073 lineto
+  272.957 248.245 lineto
+  273.049 252.16 lineto
+  273.141 253.356 lineto
+  273.233 252.402 lineto
+  273.325 248.032 lineto
+  273.416 241.762 lineto
+  273.508 235.741 lineto
+  273.6 234.409 lineto
+  273.692 238.25 lineto
+  273.783 245.973 lineto
+  273.875 252.981 lineto
+  273.967 256.113 lineto
+  274.059 256.126 lineto
+  274.151 259.323 lineto
+  274.242 267.259 lineto
+  274.334 275.743 lineto
+  274.426 279.638 lineto
+  274.518 279.888 lineto
+  274.609 275.284 lineto
+  274.701 265.918 lineto
+  274.793 247.482 lineto
+  274.885 221.788 lineto
+  274.976 199.522 lineto
+  275.068 185.187 lineto
+  275.16 182.234 lineto
+  275.252 193.052 lineto
+  275.344 215.742 lineto
+  275.435 245.623 lineto
+  275.527 272.421 lineto
+  275.619 289.05 lineto
+  275.711 292.534 lineto
+  275.802 281.771 lineto
+  275.894 257.779 lineto
+  275.986 231.23 lineto
+  276.078 208.241 lineto
+  276.17 193.574 lineto
+  276.261 187.068 lineto
+  276.353 190.215 lineto
+  276.445 202.638 lineto
+  276.537 222.065 lineto
+  276.628 241.577 lineto
+  276.72 251.374 lineto
+  276.812 251.608 lineto
+  276.904 247.896 lineto
+  276.995 243.705 lineto
+  277.087 238.803 lineto
+  277.179 233.242 lineto
+  277.271 231.373 lineto
+  277.363 235.458 lineto
+  277.454 241.451 lineto
+  277.546 246.597 lineto
+  277.638 249.036 lineto
+  277.73 245.12 lineto
+  277.821 237.603 lineto
+  277.913 230.982 lineto
+  278.005 228.927 lineto
+  278.097 235.696 lineto
+  278.189 249.821 lineto
+  278.28 265.036 lineto
+  278.372 274.711 lineto
+  278.464 276.937 lineto
+  278.556 273.023 lineto
+  278.647 261.367 lineto
+  278.739 244.308 lineto
+  278.831 228.538 lineto
+  278.923 219.619 lineto
+  279.015 219.953 lineto
+  279.106 229.325 lineto
+  279.198 243.871 lineto
+  279.29 259.038 lineto
+  279.382 266.207 lineto
+  279.473 260.656 lineto
+  279.565 241.508 lineto
+  279.657 221.189 lineto
+  279.749 203.96 lineto
+  279.84 191.681 lineto
+  279.932 186.481 lineto
+  280.024 189.1 lineto
+  280.116 199.545 lineto
+  280.208 214.906 lineto
+  280.299 231.228 lineto
+  280.391 244.21 lineto
+  280.483 250 lineto
+  280.575 253.246 lineto
+  280.666 257.451 lineto
+  280.758 262.985 lineto
+  280.85 270.826 lineto
+  280.942 281.929 lineto
+  281.034 295.223 lineto
+  281.125 306.733 lineto
+  281.217 314.689 lineto
+  281.309 317.186 lineto
+  281.401 314.139 lineto
+  281.492 307.154 lineto
+  281.584 300.597 lineto
+  281.676 294.842 lineto
+  281.768 286.516 lineto
+  281.859 277.085 lineto
+  281.951 267.749 lineto
+  282.043 259.293 lineto
+  282.135 253.439 lineto
+  282.227 250.26 lineto
+  282.318 245.255 lineto
+  282.41 240.026 lineto
+  282.502 237.004 lineto
+  282.594 235.926 lineto
+  282.685 235.028 lineto
+  282.777 232.294 lineto
+  282.869 229.424 lineto
+  282.961 229.379 lineto
+  283.053 232.859 lineto
+  283.144 237.805 lineto
+  283.236 240.656 lineto
+  283.328 241.049 lineto
+  283.42 241.399 lineto
+  283.511 241.243 lineto
+  283.603 236.888 lineto
+  283.695 231.85 lineto
+  283.787 229.938 lineto
+  283.878 230.717 lineto
+  283.97 232.811 lineto
+  284.062 233.832 lineto
+  284.154 230.449 lineto
+  284.246 224.474 lineto
+  284.337 220.089 lineto
+  284.429 218.078 lineto
+  284.521 215.957 lineto
+  284.613 213.452 lineto
+  284.704 215.532 lineto
+  284.796 221.891 lineto
+  284.888 229.383 lineto
+  284.98 234.502 lineto
+  285.072 237.754 lineto
+  285.163 241.757 lineto
+  285.255 248.164 lineto
+  285.347 255.533 lineto
+  285.439 260.528 lineto
+  285.53 262.952 lineto
+  285.622 262.567 lineto
+  285.714 259.115 lineto
+  285.806 256.308 lineto
+  285.897 256.437 lineto
+  285.989 258.934 lineto
+  286.081 262.267 lineto
+  286.173 266.366 lineto
+  286.265 269.616 lineto
+  286.356 271.602 lineto
+  286.448 273.957 lineto
+  286.54 276.789 lineto
+  286.632 280.218 lineto
+  286.723 284.341 lineto
+  286.815 288.385 lineto
+  286.907 292.394 lineto
+  286.999 296.62 lineto
+  287.091 300.496 lineto
+  287.182 302.916 lineto
+  287.274 302.919 lineto
+  287.366 297.096 lineto
+  287.458 284.757 lineto
+  287.549 267.301 lineto
+  287.641 246.299 lineto
+  287.733 225.358 lineto
+  287.825 209.769 lineto
+  287.916 200.819 lineto
+  288.008 198.019 lineto
+  288.1 198.951 lineto
+  288.192 203.576 lineto
+  288.284 213.862 lineto
+  288.375 229.583 lineto
+  288.467 248.873 lineto
+  288.559 268.577 lineto
+  288.651 282.883 lineto
+  288.742 288.456 lineto
+  288.834 288.372 lineto
+  288.926 286.324 lineto
+  289.018 283.841 lineto
+  289.11 283.045 lineto
+  289.201 283.645 lineto
+  289.293 285.171 lineto
+  289.385 287.882 lineto
+  289.477 291.845 lineto
+  289.568 295.691 lineto
+  289.66 292.954 lineto
+  289.752 286.217 lineto
+  289.844 278.705 lineto
+  289.935 270.326 lineto
+  290.027 260.171 lineto
+  290.119 251.061 lineto
+  290.211 244.618 lineto
+  290.303 242.946 lineto
+  290.394 246.467 lineto
+  290.486 252.23 lineto
+  290.578 257.268 lineto
+  290.67 262.419 lineto
+  290.761 266.788 lineto
+  290.853 269.123 lineto
+  290.945 267.087 lineto
+  291.037 261.228 lineto
+  291.129 256.22 lineto
+  291.22 252.586 lineto
+  291.312 247.789 lineto
+  291.404 241.098 lineto
+  291.496 232.32 lineto
+  291.587 222.518 lineto
+  291.679 208.524 lineto
+  291.771 196.294 lineto
+  291.863 191.847 lineto
+  291.954 198.467 lineto
+  292.046 215.098 lineto
+  292.138 237.341 lineto
+  292.23 256.659 lineto
+  292.322 267.517 lineto
+  292.413 263.081 lineto
+  292.505 251.508 lineto
+  292.597 237.925 lineto
+  292.689 224.055 lineto
+  292.78 214.936 lineto
+  292.872 212.727 lineto
+  292.964 218.643 lineto
+  293.056 230.178 lineto
+  293.148 239.471 lineto
+  293.239 249.283 lineto
+  293.331 256.955 lineto
+  293.423 259.898 lineto
+  293.515 259.436 lineto
+  293.606 256.282 lineto
+  293.698 252.627 lineto
+  293.79 250.198 lineto
+  293.882 251.665 lineto
+  293.973 257.194 lineto
+  294.065 264.822 lineto
+  294.157 271.686 lineto
+  294.249 277.993 lineto
+  294.341 284.262 lineto
+  294.432 288.256 lineto
+  294.524 289.129 lineto
+  294.616 282.811 lineto
+  294.708 265.026 lineto
+  294.799 243.569 lineto
+  294.891 222.806 lineto
+  294.983 205.574 lineto
+  295.075 193.735 lineto
+  295.167 187.792 lineto
+  295.258 186.595 lineto
+  295.35 189.954 lineto
+  295.442 196.004 lineto
+  295.534 203.563 lineto
+  295.625 202.875 lineto
+  295.717 192.431 lineto
+  295.809 175.731 lineto
+  295.901 160.377 lineto
+  295.992 153.417 lineto
+  296.084 157.972 lineto
+  296.176 175.34 lineto
+  296.268 203.372 lineto
+  296.36 238.984 lineto
+  296.451 275.923 lineto
+  296.543 309.434 lineto
+  296.635 330.766 lineto
+  296.727 335 lineto
+  296.818 322.844 lineto
+  296.91 305.441 lineto
+  297.002 290.242 lineto
+  297.094 278.982 lineto
+  297.186 271.248 lineto
+  297.277 265.365 lineto
+  297.369 261.794 lineto
+  297.461 261.562 lineto
+  297.553 261.294 lineto
+  297.644 254.701 lineto
+  297.736 243.873 lineto
+  297.828 235.112 lineto
+  297.92 232.338 lineto
+  298.012 237.927 lineto
+  298.103 251.704 lineto
+  298.195 271.468 lineto
+  298.287 291.252 lineto
+  298.379 308.618 lineto
+  298.47 319.949 lineto
+  298.562 319.77 lineto
+  298.654 307.88 lineto
+  298.746 288.4 lineto
+  298.837 270.005 lineto
+  298.929 254.96 lineto
+  299.021 242.467 lineto
+  299.113 234.391 lineto
+  299.205 232.689 lineto
+  299.296 232.543 lineto
+  299.388 232.648 lineto
+  299.48 234.618 lineto
+  299.572 236.466 lineto
+  299.663 238.064 lineto
+  299.755 243.766 lineto
+  299.847 254.101 lineto
+  299.939 266.598 lineto
+  300.031 279.536 lineto
+  300.122 289.008 lineto
+  300.214 291.339 lineto
+  300.306 291.488 lineto
+  300.398 286.737 lineto
+  300.489 274.314 lineto
+  300.581 254.995 lineto
+  300.673 236.509 lineto
+  300.765 222.656 lineto
+  300.856 216.011 lineto
+  300.948 218.122 lineto
+  301.04 227.559 lineto
+  301.132 238.961 lineto
+  301.224 247.982 lineto
+  301.315 251.477 lineto
+  301.407 245.222 lineto
+  301.499 231.493 lineto
+  301.591 218.331 lineto
+  301.682 214.302 lineto
+  301.774 224.292 lineto
+  301.866 248.461 lineto
+  301.958 278.914 lineto
+  302.05 304.701 lineto
+  302.141 317.308 lineto
+  302.233 309.455 lineto
+  302.325 284.618 lineto
+  302.417 254.472 lineto
+  302.508 230.057 lineto
+  302.6 216.392 lineto
+  302.692 211.914 lineto
+  302.784 215.628 lineto
+  302.875 223.313 lineto
+  302.967 228.049 lineto
+  303.059 224.279 lineto
+  303.151 216.196 lineto
+  303.243 211.789 lineto
+  303.334 215.477 lineto
+  303.426 225.072 lineto
+  303.518 239.015 lineto
+  303.61 257.879 lineto
+  303.701 277.021 lineto
+  303.793 286.505 lineto
+  303.885 283.656 lineto
+  303.977 269.558 lineto
+  304.069 255.167 lineto
+  304.16 246.706 lineto
+  304.252 244.893 lineto
+  304.344 249.619 lineto
+  304.436 257.729 lineto
+  304.527 263.763 lineto
+  304.619 263.868 lineto
+  304.711 256.615 lineto
+  304.803 244.806 lineto
+  304.894 232.349 lineto
+  304.986 220.258 lineto
+  305.078 214.635 lineto
+  305.17 216.842 lineto
+  305.262 226.6 lineto
+  305.353 237.104 lineto
+  305.445 244.194 lineto
+  305.537 244.534 lineto
+  305.629 237.094 lineto
+  305.72 225.784 lineto
+  305.812 216.843 lineto
+  305.904 213.016 lineto
+  305.996 212.79 lineto
+  306.088 213.921 lineto
+  306.179 214.707 lineto
+  306.271 217.916 lineto
+  306.363 224.241 lineto
+  306.455 233.762 lineto
+  306.546 247.118 lineto
+  306.638 262.287 lineto
+  306.73 274.698 lineto
+  306.822 280.904 lineto
+  306.913 283.775 lineto
+  307.005 282.813 lineto
+  307.097 274.719 lineto
+  307.189 261.587 lineto
+  307.281 249.252 lineto
+  307.372 243.524 lineto
+  307.464 244.917 lineto
+  307.556 250.338 lineto
+  307.648 254.377 lineto
+  307.739 253.369 lineto
+  307.831 247.823 lineto
+  307.923 238.781 lineto
+  308.015 228.555 lineto
+  308.107 217.256 lineto
+  308.198 208.599 lineto
+  308.29 206.873 lineto
+  308.382 213.135 lineto
+  308.474 225.486 lineto
+  308.565 239.099 lineto
+  308.657 247.712 lineto
+  308.749 249.413 lineto
+  308.841 240.841 lineto
+  308.932 224.922 lineto
+  309.024 208.374 lineto
+  309.116 195.751 lineto
+  309.208 191.154 lineto
+  309.3 193.138 lineto
+  309.391 202.415 lineto
+  309.483 216.695 lineto
+  309.575 229.095 lineto
+  309.667 236.394 lineto
+  309.758 241.435 lineto
+  309.85 238.609 lineto
+  309.942 230.687 lineto
+  310.034 226.088 lineto
+  310.126 228.603 lineto
+  310.217 239.294 lineto
+  310.309 255.358 lineto
+  310.401 271.141 lineto
+  310.493 281.4 lineto
+  310.584 282.3 lineto
+  310.676 275.101 lineto
+  310.768 257.555 lineto
+  310.86 236.371 lineto
+  310.951 221.624 lineto
+  311.043 216.66 lineto
+  311.135 221.527 lineto
+  311.227 232.659 lineto
+  311.319 244.304 lineto
+  311.41 247.07 lineto
+  311.502 236.529 lineto
+  311.594 217.093 lineto
+  311.686 193.368 lineto
+  311.777 170.536 lineto
+  311.869 154.741 lineto
+  311.961 151.295 lineto
+  312.053 160.199 lineto
+  312.145 178.486 lineto
+  312.236 199.528 lineto
+  312.328 216.015 lineto
+  312.42 224.297 lineto
+  312.512 226.503 lineto
+  312.603 225.588 lineto
+  312.695 226.779 lineto
+  312.787 232.678 lineto
+  312.879 242.085 lineto
+  312.97 253.352 lineto
+  313.062 259.049 lineto
+  313.154 255.34 lineto
+  313.246 244.536 lineto
+  313.338 229.436 lineto
+  313.429 213.219 lineto
+  313.521 201.849 lineto
+  313.613 199.422 lineto
+  313.705 204.544 lineto
+  313.796 213.829 lineto
+  313.888 223.53 lineto
+  313.98 228.828 lineto
+  314.072 227.673 lineto
+  314.164 225.144 lineto
+  314.255 224.905 lineto
+  314.347 229.376 lineto
+  314.439 237.011 lineto
+  314.531 244.521 lineto
+  314.622 247.155 lineto
+  314.714 246.011 lineto
+  314.806 241.411 lineto
+  314.898 236.132 lineto
+  314.989 230.411 lineto
+  315.081 227.272 lineto
+  315.173 231.887 lineto
+  315.265 245.515 lineto
+  315.357 266.525 lineto
+  315.448 290.663 lineto
+  315.54 307.51 lineto
+  315.632 309.593 lineto
+  315.724 296.632 lineto
+  315.815 277.18 lineto
+  315.907 259.36 lineto
+  315.999 245.702 lineto
+  316.091 237.799 lineto
+  316.183 235.051 lineto
+  316.274 237.548 lineto
+  316.366 243.797 lineto
+  316.458 246.98 lineto
+  316.55 239.309 lineto
+  316.641 225.259 lineto
+  316.733 214.357 lineto
+  316.825 210.903 lineto
+  316.917 215.129 lineto
+  317.009 226.015 lineto
+  317.1 240.773 lineto
+  317.192 253.969 lineto
+  317.284 264.766 lineto
+  317.376 272.083 lineto
+  317.467 275.217 lineto
+  317.559 274.045 lineto
+  317.651 269.233 lineto
+  317.743 260.031 lineto
+  317.834 248.753 lineto
+  317.926 237.898 lineto
+  318.018 228.234 lineto
+  318.11 222.837 lineto
+  318.202 222.37 lineto
+  318.293 225.832 lineto
+  318.385 232.21 lineto
+  318.477 239.554 lineto
+  318.569 245.501 lineto
+  318.66 247.4 lineto
+  318.752 245.005 lineto
+  318.844 236.658 lineto
+  318.936 227.642 lineto
+  319.028 217.819 lineto
+  319.119 213.023 lineto
+  319.211 215.591 lineto
+  319.303 226.643 lineto
+  319.395 244.295 lineto
+  319.486 265.492 lineto
+  319.578 279.322 lineto
+  319.67 280.794 lineto
+  319.762 270.991 lineto
+  319.853 255.952 lineto
+  319.945 239.166 lineto
+  320.037 224.644 lineto
+  320.129 215.192 lineto
+  320.221 212.451 lineto
+  320.312 218.753 lineto
+  320.404 232.31 lineto
+  320.496 250.152 lineto
+  320.588 269.204 lineto
+  320.679 282.844 lineto
+  320.771 289.75 lineto
+  320.863 294.028 lineto
+  320.955 297.132 lineto
+  321.047 299.386 lineto
+  321.138 302.253 lineto
+  321.23 305.53 lineto
+  321.322 306.598 lineto
+  321.414 300.797 lineto
+  321.505 287.893 lineto
+  321.597 274.732 lineto
+  321.689 267.284 lineto
+  321.781 266.527 lineto
+  321.872 270.39 lineto
+  321.964 274.998 lineto
+  322.056 275.216 lineto
+  322.148 270.634 lineto
+  322.24 262.087 lineto
+  322.331 250.707 lineto
+  322.423 240.064 lineto
+  322.515 231.608 lineto
+  322.607 225.68 lineto
+  322.698 221.674 lineto
+  322.79 223.354 lineto
+  322.882 230.32 lineto
+  322.974 241.068 lineto
+  323.066 254.576 lineto
+  323.157 270.04 lineto
+  323.249 286.794 lineto
+  323.341 301.613 lineto
+  323.433 311.063 lineto
+  323.524 309.537 lineto
+  323.616 295.561 lineto
+  323.708 273.165 lineto
+  323.8 246.904 lineto
+  323.891 223.404 lineto
+  323.983 205.093 lineto
+  324.075 192.985 lineto
+  324.167 191.324 lineto
+  324.259 200.416 lineto
+  324.35 217.018 lineto
+  324.442 234.811 lineto
+  324.534 242.102 lineto
+  324.626 240.591 lineto
+  324.717 233.968 lineto
+  324.809 226.292 lineto
+  324.901 221.03 lineto
+  324.993 221.893 lineto
+  325.085 229.77 lineto
+  325.176 245.851 lineto
+  325.268 267.007 lineto
+  325.36 286.768 lineto
+  325.452 301.752 lineto
+  325.543 306.599 lineto
+  325.635 300.152 lineto
+  325.727 286.936 lineto
+  325.819 277.076 lineto
+  325.91 270.784 lineto
+  326.002 266.101 lineto
+  326.094 262.228 lineto
+  326.186 257.753 lineto
+  326.278 250.691 lineto
+  326.369 241.488 lineto
+  326.461 235.175 lineto
+  326.553 230.92 lineto
+  326.645 227.193 lineto
+  326.736 222.717 lineto
+  326.828 220.017 lineto
+  326.92 218.54 lineto
+  327.012 216.294 lineto
+  327.104 211.024 lineto
+  327.195 201.918 lineto
+  327.287 194.555 lineto
+  327.379 191.422 lineto
+  327.471 194.582 lineto
+  327.562 203.856 lineto
+  327.654 217.4 lineto
+  327.746 231.972 lineto
+  327.838 244.845 lineto
+  327.929 255.914 lineto
+  328.021 268.208 lineto
+  328.113 281.257 lineto
+  328.205 292.828 lineto
+  328.297 298.933 lineto
+  328.388 302.036 lineto
+  328.48 300.06 lineto
+  328.572 293.084 lineto
+  328.664 280.287 lineto
+  328.755 265.174 lineto
+  328.847 252.6 lineto
+  328.939 247.654 lineto
+  329.031 248.644 lineto
+  329.123 248.597 lineto
+  329.214 249.12 lineto
+  329.306 245.547 lineto
+  329.398 233.936 lineto
+  329.49 217.494 lineto
+  329.581 199.688 lineto
+  329.673 186.008 lineto
+  329.765 180.522 lineto
+  329.857 186.915 lineto
+  329.948 204.827 lineto
+  330.04 228.894 lineto
+  330.132 252.182 lineto
+  330.224 264.661 lineto
+  330.316 269.439 lineto
+  330.407 268.567 lineto
+  330.499 261.352 lineto
+  330.591 252.139 lineto
+  330.683 246.062 lineto
+  330.774 246.844 lineto
+  330.866 252.754 lineto
+  330.958 262.449 lineto
+  331.05 270.086 lineto
+  331.142 267.885 lineto
+  331.233 255.433 lineto
+  331.325 238.767 lineto
+  331.417 225.619 lineto
+  331.509 220.029 lineto
+  331.6 223.831 lineto
+  331.692 235.448 lineto
+  331.784 251.652 lineto
+  331.876 265.395 lineto
+  331.967 272.538 lineto
+  332.059 271.893 lineto
+  332.151 266.606 lineto
+  332.243 262.87 lineto
+  332.335 261.461 lineto
+  332.426 259.164 lineto
+  332.518 259.022 lineto
+  332.61 257.062 lineto
+  332.702 252.608 lineto
+  332.793 251.607 lineto
+  332.885 252.017 lineto
+  332.977 250.888 lineto
+  333.069 249.374 lineto
+  333.161 252.286 lineto
+  333.252 259.483 lineto
+  333.344 266.093 lineto
+  333.436 265.448 lineto
+  333.528 258.1 lineto
+  333.619 243.57 lineto
+  333.711 222.455 lineto
+  333.803 201.088 lineto
+  333.895 184.388 lineto
+  333.986 178.653 lineto
+  334.078 184.313 lineto
+  334.17 198.236 lineto
+  334.262 213.628 lineto
+  334.354 232.943 lineto
+  334.445 254.39 lineto
+  334.537 272.442 lineto
+  334.629 277.137 lineto
+  334.721 262.168 lineto
+  334.812 235.124 lineto
+  334.904 206.087 lineto
+  334.996 178.578 lineto
+  335.088 160.102 lineto
+  335.18 154.517 lineto
+  335.271 162.694 lineto
+  335.363 182.032 lineto
+  335.455 208.196 lineto
+  335.547 232.635 lineto
+  335.638 243.694 lineto
+  335.73 243.955 lineto
+  335.822 237.171 lineto
+  335.914 223.618 lineto
+  336.006 207.644 lineto
+  336.097 197.707 lineto
+  336.189 195.017 lineto
+  336.281 198.491 lineto
+  336.373 206.12 lineto
+  336.464 215.487 lineto
+  336.556 223.591 lineto
+  336.648 228.48 lineto
+  336.74 230.12 lineto
+  336.831 232.804 lineto
+  336.923 238.216 lineto
+  337.015 244.669 lineto
+  337.107 248.546 lineto
+  337.199 247.503 lineto
+  337.29 240.388 lineto
+  337.382 231.7 lineto
+  337.474 226.488 lineto
+  337.566 227.122 lineto
+  337.657 233.818 lineto
+  337.749 245.813 lineto
+  337.841 261.037 lineto
+  337.933 278.573 lineto
+  338.025 296.522 lineto
+  338.116 296.708 lineto
+  338.208 278.7 lineto
+  338.3 255.392 lineto
+  338.392 234.416 lineto
+  338.483 216.329 lineto
+  338.575 198.961 lineto
+  338.667 183.989 lineto
+  338.759 171.161 lineto
+  338.85 162.194 lineto
+  338.942 156.111 lineto
+  339.034 150.046 lineto
+  339.126 150.195 lineto
+  339.218 160.414 lineto
+  339.309 178.965 lineto
+  339.401 203.015 lineto
+  339.493 227.288 lineto
+  339.585 246.364 lineto
+  339.676 256.508 lineto
+  339.768 262.668 lineto
+  339.86 265.667 lineto
+  339.952 271.776 lineto
+  340.044 280.714 lineto
+  340.135 289.803 lineto
+  340.227 291.658 lineto
+DashesProc stroke
+newpath
+  340.319 285.48 moveto
+  340.411 275.894 lineto
+  340.502 264.18 lineto
+  340.594 249.248 lineto
+  340.686 237.629 lineto
+  340.778 232.447 lineto
+  340.869 235.482 lineto
+  340.961 245.81 lineto
+  341.053 257.131 lineto
+  341.145 261.302 lineto
+  341.237 254.377 lineto
+  341.328 241.344 lineto
+  341.42 230.759 lineto
+  341.512 225.863 lineto
+  341.604 228.03 lineto
+  341.695 233.246 lineto
+  341.787 240.964 lineto
+  341.879 252.198 lineto
+  341.971 258.49 lineto
+  342.063 253.621 lineto
+  342.154 245.801 lineto
+  342.246 238.693 lineto
+  342.338 235.126 lineto
+  342.43 238.348 lineto
+  342.521 247.964 lineto
+  342.613 261.949 lineto
+  342.705 276.236 lineto
+  342.797 289.776 lineto
+  342.888 298.404 lineto
+  342.98 304.206 lineto
+  343.072 304.682 lineto
+  343.164 297.819 lineto
+  343.256 289.72 lineto
+  343.347 283.598 lineto
+  343.439 278.645 lineto
+  343.531 272.118 lineto
+  343.623 263.016 lineto
+  343.714 251.466 lineto
+  343.806 239.422 lineto
+  343.898 229.89 lineto
+  343.99 224.498 lineto
+  344.082 224.083 lineto
+  344.173 227.608 lineto
+  344.265 232.948 lineto
+  344.357 239.487 lineto
+  344.449 243.835 lineto
+  344.54 246.084 lineto
+  344.632 246.903 lineto
+  344.724 246.295 lineto
+  344.816 247.097 lineto
+  344.907 250.35 lineto
+  344.999 255.786 lineto
+  345.091 261.272 lineto
+  345.183 266.064 lineto
+  345.275 269.159 lineto
+  345.366 269.205 lineto
+  345.458 268.944 lineto
+  345.55 273.538 lineto
+  345.642 283.487 lineto
+  345.733 297.233 lineto
+  345.825 312.963 lineto
+  345.917 325.714 lineto
+  346.009 326.058 lineto
+  346.101 311.474 lineto
+  346.192 291.727 lineto
+  346.284 275.531 lineto
+  346.376 265.76 lineto
+  346.468 260.938 lineto
+  346.559 261.795 lineto
+  346.651 266.805 lineto
+  346.743 271.633 lineto
+  346.835 271.66 lineto
+  346.926 265.085 lineto
+  347.018 255.118 lineto
+  347.11 244.47 lineto
+  347.202 235.011 lineto
+  347.294 229.013 lineto
+  347.385 226.256 lineto
+  347.477 226.467 lineto
+  347.569 229.044 lineto
+  347.661 232.547 lineto
+  347.752 234.29 lineto
+  347.844 236.735 lineto
+  347.936 240.607 lineto
+  348.028 246.334 lineto
+  348.12 251.316 lineto
+  348.211 251.072 lineto
+  348.303 247.279 lineto
+  348.395 240.084 lineto
+  348.487 233.002 lineto
+  348.578 227.632 lineto
+  348.67 225.971 lineto
+  348.762 228.255 lineto
+  348.854 231.545 lineto
+  348.945 236.887 lineto
+  349.037 248.601 lineto
+  349.129 263.11 lineto
+  349.221 275.477 lineto
+  349.313 276.699 lineto
+  349.404 268.328 lineto
+  349.496 258.134 lineto
+  349.588 250.108 lineto
+  349.68 248.151 lineto
+  349.771 252.791 lineto
+  349.863 261.541 lineto
+  349.955 269.122 lineto
+  350.047 269.094 lineto
+  350.139 259.333 lineto
+  350.23 245.638 lineto
+  350.322 233.102 lineto
+  350.414 224.771 lineto
+  350.506 221.898 lineto
+  350.597 225.839 lineto
+  350.689 235.867 lineto
+  350.781 246.782 lineto
+  350.873 252.581 lineto
+  350.964 251.611 lineto
+  351.056 244.319 lineto
+  351.148 233.922 lineto
+  351.24 226.074 lineto
+  351.332 221.201 lineto
+  351.423 222.292 lineto
+  351.515 232.412 lineto
+  351.607 247.968 lineto
+  351.699 261.118 lineto
+  351.79 265.184 lineto
+  351.882 263.809 lineto
+  351.974 259.688 lineto
+  352.066 253.161 lineto
+  352.158 242.61 lineto
+  352.249 229.622 lineto
+  352.341 216.043 lineto
+  352.433 205.717 lineto
+  352.525 200.32 lineto
+  352.616 196.929 lineto
+  352.708 195.202 lineto
+  352.8 194.776 lineto
+  352.892 197.55 lineto
+  352.983 203.956 lineto
+  353.075 207.839 lineto
+  353.167 204.529 lineto
+  353.259 195.564 lineto
+  353.351 184.131 lineto
+  353.442 178.076 lineto
+  353.534 180.909 lineto
+  353.626 191.045 lineto
+  353.718 203.531 lineto
+  353.809 216.701 lineto
+  353.901 230.909 lineto
+  353.993 244.088 lineto
+  354.085 249.719 lineto
+  354.177 247.914 lineto
+  354.268 246.417 lineto
+  354.36 249.069 lineto
+  354.452 256.649 lineto
+  354.544 267.656 lineto
+  354.635 279.36 lineto
+  354.727 289.798 lineto
+  354.819 298.548 lineto
+  354.911 302.03 lineto
+  355.003 297.404 lineto
+  355.094 288.578 lineto
+  355.186 275.352 lineto
+  355.278 259.785 lineto
+  355.37 237.838 lineto
+  355.461 214.221 lineto
+  355.553 193.181 lineto
+  355.645 177.487 lineto
+  355.737 170.171 lineto
+  355.828 172.409 lineto
+  355.92 183.068 lineto
+  356.012 203.197 lineto
+  356.104 230.449 lineto
+  356.196 259.571 lineto
+  356.287 281.808 lineto
+  356.379 284.19 lineto
+  356.471 272.549 lineto
+  356.563 256.728 lineto
+  356.654 241.569 lineto
+  356.746 230.146 lineto
+  356.838 227.305 lineto
+  356.93 234.784 lineto
+  357.022 250.559 lineto
+  357.113 270.191 lineto
+  357.205 286.657 lineto
+  357.297 292.013 lineto
+  357.389 291.682 lineto
+  357.48 288.447 lineto
+  357.572 281.046 lineto
+  357.664 272.003 lineto
+  357.756 266.779 lineto
+  357.847 265.344 lineto
+  357.939 262.466 lineto
+  358.031 256.817 lineto
+  358.123 247.353 lineto
+  358.215 237.981 lineto
+  358.306 226.429 lineto
+  358.398 211.885 lineto
+  358.49 202.283 lineto
+  358.582 198.14 lineto
+  358.673 199.048 lineto
+  358.765 205.454 lineto
+  358.857 216.017 lineto
+  358.949 226.601 lineto
+  359.041 231.466 lineto
+  359.132 231.492 lineto
+  359.224 232.407 lineto
+  359.316 233.001 lineto
+  359.408 226.621 lineto
+  359.499 218.603 lineto
+  359.591 210.579 lineto
+  359.683 207.912 lineto
+  359.775 214.908 lineto
+  359.866 231.683 lineto
+  359.958 255.228 lineto
+  360.05 279.609 lineto
+  360.142 295.903 lineto
+  360.234 291.573 lineto
+  360.325 266.905 lineto
+  360.417 235.098 lineto
+  360.509 205.658 lineto
+  360.601 186.469 lineto
+  360.692 180.99 lineto
+  360.784 188.231 lineto
+  360.876 204.961 lineto
+  360.968 227.147 lineto
+  361.06 248.857 lineto
+  361.151 262.137 lineto
+  361.243 264.084 lineto
+  361.335 257.008 lineto
+  361.427 248.717 lineto
+  361.518 243.468 lineto
+  361.61 245.091 lineto
+  361.702 255.227 lineto
+  361.794 268.748 lineto
+  361.885 275.341 lineto
+  361.977 268.315 lineto
+  362.069 253.518 lineto
+  362.161 234.352 lineto
+  362.253 219.367 lineto
+  362.344 211.283 lineto
+  362.436 210.717 lineto
+  362.528 216.822 lineto
+  362.62 222.702 lineto
+  362.711 219.96 lineto
+  362.803 209.495 lineto
+  362.895 197.441 lineto
+  362.987 187.932 lineto
+  363.079 183.72 lineto
+  363.17 187.886 lineto
+  363.262 200.944 lineto
+  363.354 219.205 lineto
+  363.446 238.778 lineto
+  363.537 255.037 lineto
+  363.629 259.583 lineto
+  363.721 254.427 lineto
+  363.813 249.595 lineto
+  363.904 251.52 lineto
+  363.996 261.195 lineto
+  364.088 277.17 lineto
+  364.18 293.761 lineto
+  364.272 306.004 lineto
+  364.363 311.211 lineto
+  364.455 304.135 lineto
+  364.547 284.061 lineto
+  364.639 258.633 lineto
+  364.73 234.98 lineto
+  364.822 218.874 lineto
+  364.914 211.603 lineto
+  365.006 214.215 lineto
+  365.098 226.159 lineto
+  365.189 245.251 lineto
+  365.281 264.627 lineto
+  365.373 279.556 lineto
+  365.465 278.756 lineto
+  365.556 262.785 lineto
+  365.648 242.824 lineto
+  365.74 225.459 lineto
+  365.832 212.63 lineto
+  365.923 207.178 lineto
+  366.015 209.084 lineto
+  366.107 218.334 lineto
+  366.199 232.153 lineto
+  366.291 245.288 lineto
+  366.382 250.804 lineto
+  366.474 249.454 lineto
+  366.566 243.436 lineto
+  366.658 236.398 lineto
+  366.749 231.296 lineto
+  366.841 230.166 lineto
+  366.933 235.86 lineto
+  367.025 248.896 lineto
+  367.117 268.976 lineto
+  367.208 289.339 lineto
+  367.3 297.871 lineto
+  367.392 287.29 lineto
+  367.484 257.677 lineto
+  367.575 220.203 lineto
+  367.667 186.823 lineto
+  367.759 166.774 lineto
+  367.851 164.743 lineto
+  367.942 179.526 lineto
+  368.034 206.522 lineto
+  368.126 242.075 lineto
+  368.218 277.599 lineto
+  368.31 298.558 lineto
+  368.401 293.38 lineto
+  368.493 266.786 lineto
+  368.585 236.05 lineto
+  368.677 209.638 lineto
+  368.768 192.918 lineto
+  368.86 188.842 lineto
+  368.952 194.934 lineto
+  369.044 208.449 lineto
+  369.136 225.853 lineto
+  369.227 242.094 lineto
+  369.319 252.514 lineto
+  369.411 256.317 lineto
+  369.503 255.648 lineto
+  369.594 256.695 lineto
+  369.686 261.498 lineto
+  369.778 267.376 lineto
+  369.87 272.477 lineto
+  369.961 272.8 lineto
+  370.053 265.424 lineto
+  370.145 255.696 lineto
+  370.237 245.757 lineto
+  370.329 236.885 lineto
+  370.42 228.627 lineto
+  370.512 221.129 lineto
+  370.604 218.04 lineto
+  370.696 218.79 lineto
+  370.787 223.148 lineto
+  370.879 230.207 lineto
+  370.971 239.379 lineto
+  371.063 249.308 lineto
+  371.155 257.709 lineto
+  371.246 264.137 lineto
+  371.338 270.939 lineto
+  371.43 280.274 lineto
+  371.522 289.335 lineto
+  371.613 293.686 lineto
+  371.705 294.604 lineto
+  371.797 291.906 lineto
+  371.889 286.601 lineto
+  371.98 281.926 lineto
+  372.072 277.627 lineto
+  372.164 273.617 lineto
+  372.256 271.905 lineto
+  372.348 273.514 lineto
+  372.439 279.475 lineto
+  372.531 289.408 lineto
+  372.623 298.67 lineto
+  372.715 303.935 lineto
+  372.806 301.025 lineto
+  372.898 287.268 lineto
+  372.99 269.649 lineto
+  373.082 256.54 lineto
+  373.174 249.809 lineto
+  373.265 251.236 lineto
+  373.357 261.528 lineto
+  373.449 277.524 lineto
+  373.541 291.843 lineto
+  373.632 298.411 lineto
+  373.724 295.897 lineto
+  373.816 285.689 lineto
+  373.908 269.592 lineto
+  373.999 254.722 lineto
+  374.091 244.144 lineto
+  374.183 238.514 lineto
+  374.275 235.603 lineto
+  374.367 233.991 lineto
+  374.458 230.038 lineto
+  374.55 224.206 lineto
+  374.642 219.675 lineto
+  374.734 217.847 lineto
+  374.825 222.479 lineto
+  374.917 236.775 lineto
+  375.009 257.329 lineto
+  375.101 277.685 lineto
+  375.193 291.833 lineto
+  375.284 292.955 lineto
+  375.376 281.701 lineto
+  375.468 261.895 lineto
+  375.56 242.577 lineto
+  375.651 228.233 lineto
+  375.743 223.143 lineto
+  375.835 227.764 lineto
+  375.927 240.429 lineto
+  376.019 258.345 lineto
+  376.11 273.527 lineto
+  376.202 282.765 lineto
+  376.294 284.491 lineto
+  376.386 280.407 lineto
+  376.477 273.961 lineto
+  376.569 269.519 lineto
+  376.661 268.316 lineto
+  376.753 270.215 lineto
+  376.844 275.265 lineto
+  376.936 284.865 lineto
+  377.028 296.14 lineto
+  377.12 306.593 lineto
+  377.212 311.27 lineto
+  377.303 309.464 lineto
+  377.395 301.079 lineto
+  377.487 288.214 lineto
+  377.579 274.133 lineto
+  377.67 263.727 lineto
+  377.762 258.473 lineto
+  377.854 258.053 lineto
+  377.946 261.147 lineto
+  378.038 265.756 lineto
+  378.129 269.814 lineto
+  378.221 271.075 lineto
+  378.313 268.599 lineto
+  378.405 263.733 lineto
+  378.496 256.447 lineto
+  378.588 248.601 lineto
+  378.68 241.697 lineto
+  378.772 235.592 lineto
+  378.863 229.321 lineto
+  378.955 222.767 lineto
+  379.047 216.395 lineto
+  379.139 211 lineto
+  379.231 209.777 lineto
+  379.322 214.097 lineto
+  379.414 223.746 lineto
+  379.506 239.113 lineto
+  379.598 256.801 lineto
+  379.689 272.229 lineto
+  379.781 276.572 lineto
+  379.873 270.469 lineto
+  379.965 259.816 lineto
+  380.057 248.677 lineto
+  380.148 242.509 lineto
+  380.24 242.852 lineto
+  380.332 246.568 lineto
+  380.424 250.031 lineto
+  380.515 250.614 lineto
+  380.607 248.567 lineto
+  380.699 243.082 lineto
+  380.791 235.416 lineto
+  380.882 228.196 lineto
+  380.974 224.38 lineto
+  381.066 224.728 lineto
+  381.158 232.039 lineto
+  381.25 246.203 lineto
+  381.341 263.058 lineto
+  381.433 279.461 lineto
+  381.525 288.866 lineto
+  381.617 288.892 lineto
+  381.708 283.167 lineto
+  381.8 274.909 lineto
+  381.892 267.722 lineto
+  381.984 264.476 lineto
+  382.076 265.852 lineto
+  382.167 272.381 lineto
+  382.259 281.887 lineto
+  382.351 289.728 lineto
+  382.443 291.375 lineto
+  382.534 286.704 lineto
+  382.626 278.142 lineto
+  382.718 268.286 lineto
+  382.81 259.964 lineto
+  382.901 253.352 lineto
+  382.993 250.01 lineto
+  383.085 249.159 lineto
+  383.177 247.833 lineto
+  383.269 247.153 lineto
+  383.36 247.02 lineto
+  383.452 247.927 lineto
+  383.544 249.353 lineto
+  383.636 253.811 lineto
+  383.727 261.013 lineto
+  383.819 269.03 lineto
+  383.911 275.534 lineto
+  384.003 280.6 lineto
+  384.095 281.838 lineto
+  384.186 275.088 lineto
+  384.278 260.892 lineto
+  384.37 244.415 lineto
+  384.462 234.873 lineto
+  384.553 231.311 lineto
+  384.645 232.328 lineto
+  384.737 238.098 lineto
+  384.829 245.781 lineto
+  384.92 250.807 lineto
+  385.012 248.028 lineto
+  385.104 237.686 lineto
+  385.196 223.094 lineto
+  385.288 210.971 lineto
+  385.379 206.294 lineto
+  385.471 210.573 lineto
+  385.563 220.931 lineto
+  385.655 231.229 lineto
+  385.746 242.454 lineto
+  385.838 247.661 lineto
+  385.93 244.832 lineto
+  386.022 236.353 lineto
+  386.114 229.22 lineto
+  386.205 228.914 lineto
+  386.297 232.029 lineto
+  386.389 234.336 lineto
+  386.481 237.505 lineto
+  386.572 245.509 lineto
+  386.664 256.925 lineto
+  386.756 265.798 lineto
+  386.848 271.295 lineto
+  386.939 272.509 lineto
+  387.031 268.177 lineto
+  387.123 263.2 lineto
+  387.215 256.008 lineto
+  387.307 247.855 lineto
+  387.398 238.591 lineto
+  387.49 230.561 lineto
+  387.582 227.741 lineto
+  387.674 225.88 lineto
+  387.765 225.257 lineto
+  387.857 225.064 lineto
+  387.949 222.453 lineto
+  388.041 217.289 lineto
+  388.133 211.972 lineto
+  388.224 206.371 lineto
+  388.316 197.978 lineto
+  388.408 194.606 lineto
+  388.5 198.126 lineto
+  388.591 206.315 lineto
+  388.683 218.228 lineto
+  388.775 229.226 lineto
+  388.867 234.147 lineto
+  388.958 232.148 lineto
+  389.05 223.649 lineto
+  389.142 213.298 lineto
+  389.234 204.997 lineto
+  389.326 202.365 lineto
+  389.417 208.803 lineto
+  389.509 222.654 lineto
+  389.601 242.436 lineto
+  389.693 264.154 lineto
+  389.784 280.608 lineto
+  389.876 286.573 lineto
+  389.968 283.745 lineto
+  390.06 279.008 lineto
+  390.152 278.045 lineto
+  390.243 283.662 lineto
+  390.335 292.566 lineto
+  390.427 297.649 lineto
+  390.519 295.426 lineto
+  390.61 284.831 lineto
+  390.702 264.884 lineto
+  390.794 242.773 lineto
+  390.886 225.38 lineto
+  390.977 216.714 lineto
+  391.069 218.822 lineto
+  391.161 230.174 lineto
+  391.253 244.725 lineto
+  391.345 256.647 lineto
+  391.436 263.875 lineto
+  391.528 264.887 lineto
+  391.62 258.413 lineto
+  391.712 247.629 lineto
+  391.803 237.956 lineto
+  391.895 233.936 lineto
+  391.987 240.32 lineto
+  392.079 257.518 lineto
+  392.171 280.62 lineto
+  392.262 300.384 lineto
+  392.354 308.077 lineto
+  392.446 305.187 lineto
+  392.538 289.211 lineto
+  392.629 269.492 lineto
+  392.721 253.962 lineto
+  392.813 246.736 lineto
+  392.905 250.277 lineto
+  392.996 262.421 lineto
+  393.088 280.438 lineto
+  393.18 298.361 lineto
+  393.272 300.31 lineto
+  393.364 284.554 lineto
+  393.455 255.512 lineto
+  393.547 223.581 lineto
+  393.639 195.825 lineto
+  393.731 178.754 lineto
+  393.822 172.871 lineto
+  393.914 176.714 lineto
+  394.006 188.998 lineto
+  394.098 205.01 lineto
+  394.19 219.604 lineto
+  394.281 233.668 lineto
+  394.373 240.903 lineto
+  394.465 235.304 lineto
+  394.557 221.229 lineto
+  394.648 207.138 lineto
+  394.74 197.59 lineto
+  394.832 194.975 lineto
+  394.924 201.544 lineto
+  395.016 212.679 lineto
+  395.107 226.331 lineto
+  395.199 244.254 lineto
+  395.291 262.038 lineto
+  395.383 272.053 lineto
+  395.474 269.317 lineto
+  395.566 259.975 lineto
+  395.658 248.546 lineto
+  395.75 238.106 lineto
+  395.841 230.458 lineto
+  395.933 227.902 lineto
+  396.025 231.251 lineto
+  396.117 239.569 lineto
+  396.209 250.172 lineto
+  396.3 261.939 lineto
+  396.392 271.99 lineto
+  396.484 278.249 lineto
+  396.576 285.413 lineto
+  396.667 294.173 lineto
+  396.759 303.827 lineto
+  396.851 309.346 lineto
+  396.943 307.894 lineto
+  397.035 299.202 lineto
+  397.126 284.79 lineto
+  397.218 270.446 lineto
+  397.31 257.759 lineto
+  397.402 250.206 lineto
+  397.493 250.665 lineto
+  397.585 259.121 lineto
+  397.677 271.45 lineto
+  397.769 280.718 lineto
+  397.86 278.14 lineto
+  397.952 267.923 lineto
+  398.044 254.952 lineto
+  398.136 243.622 lineto
+  398.228 237.973 lineto
+  398.319 238.131 lineto
+  398.411 243.12 lineto
+  398.503 248.517 lineto
+  398.595 249.65 lineto
+  398.686 242.132 lineto
+  398.778 228.735 lineto
+  398.87 214.884 lineto
+  398.962 206.515 lineto
+  399.054 205.027 lineto
+  399.145 211.606 lineto
+  399.237 225.909 lineto
+  399.329 244.905 lineto
+  399.421 263.49 lineto
+  399.512 275.364 lineto
+  399.604 269.118 lineto
+  399.696 251.316 lineto
+  399.788 230.186 lineto
+  399.879 214.081 lineto
+  399.971 209.318 lineto
+  400.063 215.491 lineto
+  400.155 229.987 lineto
+  400.247 250.246 lineto
+  400.338 269.973 lineto
+  400.43 279.116 lineto
+  400.522 277.107 lineto
+  400.614 269.31 lineto
+  400.705 259.029 lineto
+  400.797 248.717 lineto
+  400.889 242.541 lineto
+  400.981 240.667 lineto
+  401.073 241.845 lineto
+  401.164 243.772 lineto
+  401.256 240.79 lineto
+  401.348 233.319 lineto
+  401.44 226.326 lineto
+  401.531 223.013 lineto
+  401.623 222.361 lineto
+  401.715 223.986 lineto
+  401.807 229.714 lineto
+  401.898 240.945 lineto
+  401.99 254.896 lineto
+  402.082 267.149 lineto
+  402.174 270.79 lineto
+  402.266 269.9 lineto
+  402.357 269.815 lineto
+  402.449 270.066 lineto
+  402.541 271.731 lineto
+  402.633 274.006 lineto
+  402.724 278.939 lineto
+  402.816 285.224 lineto
+  402.908 289.51 lineto
+  403 291.581 lineto
+  403.092 291.696 lineto
+  403.183 289.05 lineto
+  403.275 281.848 lineto
+  403.367 272.803 lineto
+  403.459 265.004 lineto
+  403.55 253.707 lineto
+  403.642 237.151 lineto
+  403.734 218.406 lineto
+  403.826 202.814 lineto
+  403.917 194.896 lineto
+  404.009 198.329 lineto
+  404.101 213.647 lineto
+  404.193 236.22 lineto
+  404.285 259.241 lineto
+  404.376 280.101 lineto
+  404.468 290.915 lineto
+  404.56 286.86 lineto
+  404.652 267.514 lineto
+  404.743 242.248 lineto
+  404.835 220.49 lineto
+  404.927 205.911 lineto
+  405.019 200.019 lineto
+  405.111 201.885 lineto
+  405.202 208.661 lineto
+  405.294 218.737 lineto
+  405.386 228.102 lineto
+  405.478 232.666 lineto
+  405.569 233.739 lineto
+  405.661 233.889 lineto
+  405.753 235.727 lineto
+  405.845 241.33 lineto
+  405.936 248.657 lineto
+  406.028 257.064 lineto
+  406.12 266.893 lineto
+  406.212 276.126 lineto
+  406.304 283.619 lineto
+  406.395 286.314 lineto
+  406.487 282.733 lineto
+  406.579 272.549 lineto
+  406.671 256.826 lineto
+  406.762 236.04 lineto
+  406.854 213.15 lineto
+  406.946 193.181 lineto
+  407.038 181.057 lineto
+  407.13 177.69 lineto
+  407.221 180.917 lineto
+  407.313 190.981 lineto
+  407.405 207.305 lineto
+  407.497 224.844 lineto
+  407.588 241.064 lineto
+  407.68 253.858 lineto
+  407.772 260.039 lineto
+  407.864 262.488 lineto
+  407.955 265.695 lineto
+  408.047 266.508 lineto
+  408.139 265.149 lineto
+  408.231 261.98 lineto
+  408.323 254.639 lineto
+  408.414 244.098 lineto
+  408.506 235.273 lineto
+  408.598 228.482 lineto
+  408.69 225.513 lineto
+  408.781 227.859 lineto
+  408.873 233.698 lineto
+  408.965 243.685 lineto
+  409.057 254.817 lineto
+  409.149 263.771 lineto
+  409.24 269.126 lineto
+  409.332 266.799 lineto
+  409.424 263.107 lineto
+  409.516 260.881 lineto
+  409.607 260.676 lineto
+  409.699 261.049 lineto
+  409.791 261.652 lineto
+  409.883 264.272 lineto
+  409.974 265.323 lineto
+  410.066 265.866 lineto
+  410.158 266.358 lineto
+  410.25 267.084 lineto
+  410.342 266.148 lineto
+  410.433 263.85 lineto
+  410.525 261.608 lineto
+  410.617 257.863 lineto
+  410.709 255.151 lineto
+  410.8 256.56 lineto
+  410.892 264.401 lineto
+  410.984 275.46 lineto
+  411.076 283.495 lineto
+  411.168 287.418 lineto
+  411.259 284.198 lineto
+  411.351 268.727 lineto
+  411.443 243.911 lineto
+  411.535 218.951 lineto
+  411.626 200.279 lineto
+  411.718 189.918 lineto
+  411.81 189.603 lineto
+  411.902 200.34 lineto
+  411.993 219.101 lineto
+  412.085 240.284 lineto
+  412.177 252.832 lineto
+  412.269 248.259 lineto
+  412.361 238.874 lineto
+  412.452 227.74 lineto
+  412.544 216.477 lineto
+  412.636 211.605 lineto
+  412.728 216.303 lineto
+  412.819 230.319 lineto
+  412.911 253.283 lineto
+  413.003 280.243 lineto
+  413.095 299.523 lineto
+  413.187 300.234 lineto
+  413.278 288.242 lineto
+  413.37 274.399 lineto
+  413.462 263.98 lineto
+  413.554 257.934 lineto
+  413.645 256.786 lineto
+  413.737 259.148 lineto
+  413.829 265.449 lineto
+  413.921 273.825 lineto
+  414.013 281.046 lineto
+  414.104 284.415 lineto
+  414.196 284.302 lineto
+  414.288 279.543 lineto
+  414.38 268.872 lineto
+  414.471 254.767 lineto
+  414.563 241.177 lineto
+  414.655 231.635 lineto
+  414.747 226.982 lineto
+  414.838 227.281 lineto
+  414.93 231.746 lineto
+  415.022 233.097 lineto
+  415.114 229.52 lineto
+  415.206 222.694 lineto
+  415.297 214.75 lineto
+  415.389 208.168 lineto
+  415.481 202.622 lineto
+  415.573 202.717 lineto
+  415.664 205.055 lineto
+  415.756 207.675 lineto
+  415.848 214.171 lineto
+  415.94 225.131 lineto
+  416.032 237.346 lineto
+  416.123 248.051 lineto
+  416.215 255.681 lineto
+  416.307 260.501 lineto
+  416.399 265.383 lineto
+  416.49 273.175 lineto
+  416.582 284.215 lineto
+  416.674 293.54 lineto
+  416.766 298.239 lineto
+  416.857 299.434 lineto
+  416.949 294.461 lineto
+  417.041 284.857 lineto
+  417.133 273.394 lineto
+  417.225 260.502 lineto
+  417.316 248.849 lineto
+  417.408 242.714 lineto
+  417.5 242.369 lineto
+  417.592 246.121 lineto
+  417.683 251.587 lineto
+  417.775 255.982 lineto
+  417.867 255.468 lineto
+  417.959 248.639 lineto
+  418.051 238.861 lineto
+  418.142 230.069 lineto
+  418.234 224.124 lineto
+  418.326 223.997 lineto
+  418.418 228.872 lineto
+  418.509 239.568 lineto
+  418.601 255.632 lineto
+  418.693 272.78 lineto
+  418.785 286.336 lineto
+  418.876 291.701 lineto
+  418.968 287.035 lineto
+  419.06 278.924 lineto
+  419.152 272.23 lineto
+  419.244 272.275 lineto
+  419.335 280.037 lineto
+  419.427 293.642 lineto
+  419.519 306.337 lineto
+  419.611 310.085 lineto
+  419.702 297.791 lineto
+  419.794 272.79 lineto
+  419.886 244.898 lineto
+  419.978 222.635 lineto
+  420.07 211.114 lineto
+  420.161 212.269 lineto
+  420.253 225.256 lineto
+  420.345 245.409 lineto
+  420.437 261.81 lineto
+  420.528 266.563 lineto
+  420.62 258.862 lineto
+  420.712 243.368 lineto
+  420.804 218.355 lineto
+  420.895 194.546 lineto
+  420.987 180.456 lineto
+  421.079 180.437 lineto
+  421.171 193.55 lineto
+  421.263 214.703 lineto
+  421.354 234.124 lineto
+  421.446 243.6 lineto
+  421.538 245.06 lineto
+  421.63 240.928 lineto
+  421.721 233.2 lineto
+  421.813 224.019 lineto
+  421.905 217.603 lineto
+  421.997 219.685 lineto
+  422.089 229.051 lineto
+  422.18 240.377 lineto
+  422.272 242.857 lineto
+  422.364 237.938 lineto
+  422.456 230.94 lineto
+  422.547 223.581 lineto
+  422.639 218.774 lineto
+  422.731 220.341 lineto
+  422.823 227.09 lineto
+  422.914 232.386 lineto
+  423.006 232.676 lineto
+  423.098 226.159 lineto
+  423.19 217.168 lineto
+  423.282 206.808 lineto
+  423.373 199.191 lineto
+  423.465 194.89 lineto
+  423.557 196.401 lineto
+  423.649 204.477 lineto
+  423.74 217.752 lineto
+  423.832 232.597 lineto
+  423.924 241.431 lineto
+  424.016 243.148 lineto
+  424.108 241.976 lineto
+  424.199 238.987 lineto
+  424.291 236.489 lineto
+  424.383 232.666 lineto
+  424.475 228.639 lineto
+  424.566 229.602 lineto
+  424.658 233.725 lineto
+  424.75 238.863 lineto
+  424.842 245.369 lineto
+  424.933 246.679 lineto
+  425.025 244.286 lineto
+  425.117 238.259 lineto
+  425.209 230.047 lineto
+  425.301 220.821 lineto
+  425.392 213.486 lineto
+  425.484 208.741 lineto
+  425.576 207.185 lineto
+  425.668 208.886 lineto
+  425.759 213.088 lineto
+  425.851 218.58 lineto
+  425.943 226.668 lineto
+  426.035 235.458 lineto
+  426.127 242.208 lineto
+  426.218 242.818 lineto
+  426.31 237.439 lineto
+  426.402 231.493 lineto
+  426.494 228.439 lineto
+  426.585 230.138 lineto
+  426.677 236.986 lineto
+  426.769 246.954 lineto
+  426.861 256.242 lineto
+  426.952 262.859 lineto
+  427.044 267.599 lineto
+  427.136 267.933 lineto
+  427.228 257.876 lineto
+  427.32 240.807 lineto
+  427.411 222.463 lineto
+  427.503 207.251 lineto
+  427.595 198.548 lineto
+  427.687 198.29 lineto
+  427.778 205.223 lineto
+  427.87 219.352 lineto
+  427.962 239.475 lineto
+  428.054 255.484 lineto
+  428.146 261.306 lineto
+  428.237 260.182 lineto
+  428.329 253.866 lineto
+  428.421 244.023 lineto
+  428.513 232.302 lineto
+  428.604 223.088 lineto
+  428.696 218.996 lineto
+  428.788 218.967 lineto
+  428.88 222.809 lineto
+  428.971 230.828 lineto
+  429.063 236.11 lineto
+  429.155 237.516 lineto
+  429.247 234.453 lineto
+  429.339 229.393 lineto
+  429.43 226.886 lineto
+  429.522 227.873 lineto
+  429.614 229.994 lineto
+  429.706 231.071 lineto
+  429.797 233.422 lineto
+  429.889 236.852 lineto
+  429.981 239.416 lineto
+  430.073 242.173 lineto
+  430.165 246.878 lineto
+  430.256 253.548 lineto
+  430.348 260.725 lineto
+  430.44 265.381 lineto
+  430.532 272.213 lineto
+  430.623 278.622 lineto
+  430.715 282.819 lineto
+  430.807 281.382 lineto
+  430.899 272.33 lineto
+  430.99 255.851 lineto
+  431.082 232.2 lineto
+  431.174 209.573 lineto
+  431.266 194.001 lineto
+  431.358 187.987 lineto
+  431.449 190.911 lineto
+  431.541 203.487 lineto
+  431.633 223.561 lineto
+  431.725 242.37 lineto
+  431.816 258.485 lineto
+  431.908 267.986 lineto
+  432 271.765 lineto
+DashesProc stroke
+% end trace
+
+% Unset clipping
+grestore
+
+1 1 1 setrgbcolor
+% Margins
+newpath
+  0 0 moveto
+  450 0 rlineto
+  0 27 rlineto
+  -450 0 rlineto
+closepath
+fill
+newpath
+  0 27 moveto
+  65 0 rlineto
+  0 308 rlineto
+  -65 0 rlineto
+closepath
+fill
+newpath
+  432 27 moveto
+  18 0 rlineto
+  0 308 rlineto
+  -18 0 rlineto
+closepath
+fill
+newpath
+  0 335 moveto
+  450 0 rlineto
+  0 40 rlineto
+  -450 0 rlineto
+closepath
+fill
+% Interior 3D border
+1 1 1 setrgbcolor
+newpath
+  63 336 moveto
+  371 0 rlineto
+  0 1 rlineto
+  -371 0 rlineto
+closepath
+fill
+newpath
+  433 25 moveto
+  1 0 rlineto
+  0 312 rlineto
+  -1 0 rlineto
+closepath
+fill
+0.505882 0.505882 0.505882 setrgbcolor
+newpath
+  63 337 moveto
+  63 25 lineto
+  434 25 lineto
+  433 26 lineto
+  64 26 lineto
+  64 336 lineto
+  63 337 lineto
+  63 337 lineto
+closepath
+fill
+0.505882 0.505882 0.505882 setrgbcolor
+newpath
+  64 335 moveto
+  369 0 rlineto
+  0 1 rlineto
+  -369 0 rlineto
+closepath
+fill
+newpath
+  432 26 moveto
+  1 0 rlineto
+  0 310 rlineto
+  -1 0 rlineto
+closepath
+fill
+1 1 1 setrgbcolor
+newpath
+  64 336 moveto
+  64 26 lineto
+  433 26 lineto
+  432 27 lineto
+  65 27 lineto
+  65 335 lineto
+  64 336 lineto
+  64 336 lineto
+closepath
+fill
+% Graph title
+31 11 0 248 12.5 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(Circle) 31 0 9 DrawAdjText
+EndText
+% Axis "x"
+18 8 0 247 363 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(wcs) 15 1 6 DrawAdjText
+EndText
+20 8 0 65 351 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(-200) 18 2 6 DrawAdjText
+EndText
+20 8 0 156.773 351 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(-100) 18 2 6 DrawAdjText
+EndText
+7 8 0 248.546 351 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(0) 5 2 6 DrawAdjText
+EndText
+17 8 0 340.319 351 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(100) 15 2 6 DrawAdjText
+EndText
+0 setlinejoin
+0 setlinecap
+0 0 0 setrgbcolor
+1 setlinewidth
+[ ] 0 setdash
+/DashesProc {} def
+newpath
+  65 337 moveto 432 337 lineto
+DashesProc stroke
+  110.886 337 moveto 110.886 342 lineto
+DashesProc stroke
+  65 337 moveto 65 345 lineto
+DashesProc stroke
+  202.659 337 moveto 202.659 342 lineto
+DashesProc stroke
+  156.773 337 moveto 156.773 345 lineto
+DashesProc stroke
+  294.432 337 moveto 294.432 342 lineto
+DashesProc stroke
+  248.546 337 moveto 248.546 345 lineto
+DashesProc stroke
+  386.205 337 moveto 386.205 342 lineto
+DashesProc stroke
+  340.319 337 moveto 340.319 345 lineto
+DashesProc stroke
+% Axis "y"
+32 8 90 12 179 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(Counts) 29 1 6 DrawAdjText
+EndText
+30 8 0 38 310.261 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(0.0002) 28 2 6 DrawAdjText
+EndText
+30 8 0 38 227.339 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(0.0003) 28 2 6 DrawAdjText
+EndText
+30 8 0 38 144.417 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(0.0004) 28 2 6 DrawAdjText
+EndText
+30 8 0 38 61.4949 BeginText
+12.0 /Helvetica-Bold SetFont
+0 0 0 setrgbcolor
+(0.0005) 28 2 6 DrawAdjText
+EndText
+0 setlinejoin
+0 setlinecap
+0 0 0 setrgbcolor
+1 setlinewidth
+[ ] 0 setdash
+/DashesProc {} def
+newpath
+  63 335 moveto 63 27 lineto
+DashesProc stroke
+  63 268.8 moveto 58 268.8 lineto
+DashesProc stroke
+  63 310.261 moveto 55 310.261 lineto
+DashesProc stroke
+  63 185.878 moveto 58 185.878 lineto
+DashesProc stroke
+  63 227.339 moveto 55 227.339 lineto
+DashesProc stroke
+  63 102.956 moveto 58 102.956 lineto
+DashesProc stroke
+  63 144.417 moveto 55 144.417 lineto
+DashesProc stroke
+  63 61.4949 moveto 55 61.4949 lineto
+DashesProc stroke
+showpage
+%Trailer
+grestore
+end
+%EOF
